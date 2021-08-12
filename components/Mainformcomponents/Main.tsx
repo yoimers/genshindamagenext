@@ -156,7 +156,7 @@ export default function Main() {
     });
     return typeelement;
   }
-
+  let x=0;
   return (
     <main className="flex flex-col flex-grow mr-3 border border-gray-800 rounded-lg shadow-sm">
       {typeelement}
