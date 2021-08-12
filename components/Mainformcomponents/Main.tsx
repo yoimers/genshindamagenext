@@ -1,10 +1,4 @@
 import React, { ReactElement, useEffect, useReducer, useState } from "react";
-import Charform from "./Charform";
-import Weaponform from "./Weaponform";
-import Artifactform from "./Artifactform";
-import { cloneDeep } from "lodash";
-import structurecheck from "./Statecontrols/Structurecheck";
-import getmaximalId from "./Statecontrols/GetmaximalId";
 import typestructure from "./Statecontrols/Typestructure";
 import { createNode } from "./Statecontrols/CreateNode";
 import { deleteNode } from "./Statecontrols/DeleteNode";
@@ -19,7 +13,6 @@ const statestree = [
     stat: { d: "12" },
   },
 ];
-
 const typetree = [
   {
     id: "1",
