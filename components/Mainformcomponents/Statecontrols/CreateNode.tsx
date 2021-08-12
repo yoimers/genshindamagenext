@@ -1,19 +1,25 @@
 import { cloneDeep } from "lodash";
 import structurecheck from "./Structurecheck";
 import getmaximalId from "./GetmaximalId";
-import { TypeTree } from "../../Statuslist/type";
+import { Equip, TypeTree } from "../../Statuslist/type";
+import { st } from "../../Statuslist/status";
 
 export const createNode = (
   prev: TypeTree[],
   id: String,
-  type: String
+  type: Equip
 ): TypeTree[] => {
   let prevTree = cloneDeep(prev);
   const newNode = {
     id: (getmaximalId(prevTree) + 1).toString(),
     type,
+    status: st,
     children: [],
   };
+  if(type==="char"){
+    prevTree.push(newNode);
+    return prevTree;
+  }
   prevTree.forEach((type0) => {
     if (type0.id === id) {
       type0.children.push(newNode);
