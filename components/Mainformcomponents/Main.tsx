@@ -1,8 +1,13 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useReducer, useState } from "react";
 import Charform from "./Charform";
 import Weaponform from "./Weaponform";
 import Artifactform from "./Artifactform";
-import { cloneElement, cloneDeep } from "lodash";
+import { cloneDeep } from "lodash";
+import structurecheck from "./Statecontrols/Structurecheck";
+import getmaximalId from "./Statecontrols/GetmaximalId";
+import typestructure from "./Statecontrols/Typestructure";
+import { createNode } from "./Statecontrols/CreateNode";
+import { deleteNode } from "./Statecontrols/DeleteNode";
 
 const statestree = [
   {
@@ -46,140 +51,31 @@ interface TypeSubTree {
   id: String;
   type: String;
 }
-export default function Main() {
-  const [types, setTypes] = useState<TypeTree[]>(typetree);
-  const typeelement = typestructure(types);
+interface CreateNode {
+  action: "createNode";
+  id: String;
+  type: "char" | "art" | "wap";
+}
+interface DeleteNode {
+  action: "deleteNode";
+  id: String;
+}
 
-  const deleteNode = (id: String): void => {
-    setTypes((prevTree) => {
-      const x = prevTree.slice();
-      x.some((type, i) => {
-        if (type.id === id) {
-          x.splice(i, 1);
-          return true;
-        }
-        type.children.some((type1, j) => {
-          if (type1.id === id) {
-            type.children.splice(j, 1);
-            return true;
-          }
-          type1.children.some((type2, k) => {
-            if (type2.id === id) {
-              type1.children.splice(k, 1);
-              return true;
-            }
-          });
-        });
-      });
-      return x;
-    });
-  };
-  const getmaximalId = (types: TypeTree[]): number => {
-    let maxid = 0;
-    types.forEach((type0) => {
-      if (maxid < Number(type0.id)) {
-        maxid = Number(type0.id);
-      }
-      type0.children.forEach((type1) => {
-        if (maxid < Number(type1.id)) {
-          maxid = Number(type1.id);
-        }
-        type1.children.forEach((type2) => {
-          if (maxid < Number(type2.id)) {
-            maxid = Number(type2.id);
-          }
-        });
-      });
-    });
-    return maxid;
-  };
-  const createNode = (id: String, type: String): void => {
-    setTypes((prev) => {
-      let prevTypes = cloneDeep(prev);
-      const newNode = {
-        id: (getmaximalId(prevTypes) + 1).toString(),
-        type,
-        children: [],
-      };
-      prevTypes.forEach((type0) => {
-        if (type0.id === id) {
-          type0.children.push(newNode);
-        }
-        type0.children.forEach((type1) => {
-          if (type1.id === id) {
-            type1.children.push(newNode);
-            console.log("aawww");
-          }
-          type1.children.forEach((type2) => {});
-        });
-      });
-      const isCorrect = structurecheck(prevTypes);
-      if (isCorrect) {
-        return prevTypes;
-      } else {
-        return prev;
-      }
-    });
-  };
-  useEffect(() => {
-    console.log("aa");
-    createNode("2", "art");
-  }, []);
+type Action = CreateNode | DeleteNode;
 
-  function typestructure(types: TypeTree[]): ReactElement[] {
-    const typeelement = types.map((type0) => {
-      const typeelement0 = type0.children.map((type1) => {
-        const typeelement1 = type1.children.map((type2) => {
-          if (type2.type === "wep") {
-            return (
-              <Weaponform
-                g={2}
-                key={type2.id}
-                onDelete={() => deleteNode(type2.id)}
-              />
-            );
-          } else {
-            return (
-              <Artifactform
-                g={2}
-                key={type2.id}
-                onDelete={() => deleteNode(type2.id)}
-              />
-            );
-          }
-        });
-        if (type1.type === "wep") {
-          return (
-            <Weaponform
-              g={1}
-              key={type1.id}
-              onDelete={() => deleteNode(type1.id)}
-            >
-              {typeelement1}
-            </Weaponform>
-          );
-        } else {
-          return (
-            <Artifactform
-              g={1}
-              key={type1.id}
-              onDelete={() => deleteNode(type1.id)}
-            >
-              {typeelement1}
-            </Artifactform>
-          );
-        }
-      });
-      if (type0.type === "char") {
-        return (
-          <Charform g={0} key={type0.id} onDelete={() => deleteNode(type0.id)}>
-            {typeelement0}
-          </Charform>
-        );
-      }
-    });
-    return typeelement;
+const reducer = (typetree: TypeTree[], action: Action): TypeTree[] => {
+  switch (action.action) {
+    case "createNode":
+      return createNode(typetree, action.id, action.type);
+    case "deleteNode":
+      return deleteNode(typetree, action.id);
   }
+};
+
+export default function Main() {
+  const [types, dispatch] = useReducer(reducer, typetree);
+  const typeelement = typestructure(types, dispatch);
+
   return (
     <main className="flex flex-col flex-grow mr-3 border border-gray-800 rounded-lg shadow-sm">
       {typeelement}
@@ -187,29 +83,3 @@ export default function Main() {
   );
 }
 
-function structurecheck(types: TypeTree[]): boolean {
-  // charはtop層のみ, wepとartは2,3層にそれぞれ有る
-  const judge1 = types.filter((type0) => {
-    if (type0.type !== "char") {
-      return true;
-    }
-  });
-  if (judge1.length !== 0) return false;
-
-  const judge2 = types.filter((type0) => {
-    const d = type0.children.filter((type1) => {
-      const judge = type1.children.filter((type2) => {
-        if (
-          type1.type === type2.type ||
-          type2.type === "char" ||
-          type1.type === "char"
-        )
-          return true;
-      });
-      if (judge.length !== 0) return true;
-    });
-    if (d.length !== 0) return true;
-  });
-  if (judge2.length !== 0) return false;
-  return true;
-}
