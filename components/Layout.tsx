@@ -1,9 +1,9 @@
-import Image from "next/image";
-import Link from "next/link";
-import Header from "./Headercomponents/Header";
-import Head from "next/head";
-import Sidebar from "./Mainformcomponents/Sidebarcomponents/Sidebar";
-import Main from "./Mainformcomponents/Main";
+import Image from 'next/image';
+import Link from 'next/link';
+import Header from './Headercomponents/Header';
+import Head from 'next/head';
+import Sidebar from './Mainformcomponents/Sidebarcomponents/Sidebar';
+import Main from './Mainformcomponents/Main';
 
 export default function Layout({ children }) {
   return (
@@ -16,9 +16,7 @@ export default function Layout({ children }) {
         <div className="mx-auto w-245 pt-4">
           <Header />
           <Main />
-          <footer className="mt-2 bg-transparent h-32 border border-gray-800 rounded-lg shadow-sm">
-            footer
-          </footer>
+          <footer className="mt-2 bg-transparent h-32 border border-gray-800 rounded-lg shadow-sm">footer</footer>
         </div>
       </div>
     </>

@@ -4,6 +4,8 @@ import { createNode } from './Statecontrols/CreateNode';
 import { deleteNode } from './Statecontrols/DeleteNode';
 import Sidebar from './Sidebarcomponents/Sidebar';
 import { TypeTree, Action } from '../Statuslist/type';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd';
 
 const typetree: TypeTree[] = [
   {
@@ -22,15 +24,24 @@ const typetree: TypeTree[] = [
       },
     ],
   },
+  {
+    id: '3',
+    type: 'char',
+    children: [
+      {
+        id: '4',
+        type: 'wep',
+        children: [
+          {
+            id: '5',
+            type: 'art',
+          },
+        ],
+      },
+    ],
+  },
 ];
-
-export const StatusContext = createContext(
-  {} as {
-    types: TypeTree[];
-    dispatch: React.Dispatch<Action>;
-  }
-);
-
+export const StateContext = createContext({} as { types: TypeTree[]; dispatch: React.Dispatch<Action> });
 const reducer = (typetree: TypeTree[], action: Action): TypeTree[] => {
   switch (action.action) {
     case 'createNode':
@@ -43,15 +54,15 @@ const reducer = (typetree: TypeTree[], action: Action): TypeTree[] => {
 export default function Main() {
   const [types, dispatch] = useReducer(reducer, typetree);
   const typeelement = typestructure(types, dispatch);
-  useEffect(() => {
-    console.log(types);
-  });
+
   return (
-    <div className="flex flex-nowrap bg-transparent min-h-full">
-      <StatusContext.Provider value={{ types, dispatch }}>
-        <main className="flex flex-col flex-grow mr-3 border border-gray-800 rounded-lg shadow-sm">{typeelement}</main>
-        <Sidebar />
-      </StatusContext.Provider>
-    </div>
+    <StateContext.Provider value={{ types, dispatch }}>
+      <DndProvider backend={HTML5Backend}>
+        <div className="flex flex-nowrap bg-transparent min-h-full">
+          <main className="flex flex-col flex-grow w-mainwidth mr-2 border border-gray-800 rounded-lg shadow-sm">{typeelement}</main>
+          <Sidebar />
+        </div>
+      </DndProvider>
+    </StateContext.Provider>
   );
 }

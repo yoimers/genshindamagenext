@@ -78,19 +78,8 @@ interface DeleteNode {
   action: 'deleteNode';
   id: String;
 }
-interface ChangeNodeButton {
-  action: 'changeNode_button';
-  id: String;
-  add: number;
-  name: Label;
-}
-interface ChangeNodeInput {
-  action: 'changeNode_input';
-  id: String;
-  value: number;
-  name: Label;
-}
-export type Action = CreateNode | DeleteNode | ChangeNodeButton | ChangeNodeInput;
+
+export type Action = CreateNode | DeleteNode;
 
 interface Button {
   type: 'plus' | 'minus';

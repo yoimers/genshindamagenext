@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
+import { Equip } from '../../Statuslist/type';
 import Delete from './Delete';
 import Inputform from './Inputform';
 import Inputname from './Inputname';
+import useDropdodoco from './useComponents/useDropdodoco';
 
+const accept: Equip[] = ['char', 'art', 'wep'];
 export default function Charform({ children, g, onDelete, id }: any) {
+  const { canDrop, isOver, drop, bg } = useDropdodoco(g, id, accept);
   return (
     <div className={`ml-${2 * g}`}>
-      <div className="h-40 border border-red-400 rounded-md">
+      <div className={`h-40 border border-red-400 rounded-md ${bg} transition-opacity duration-100`} ref={drop}>
         <div className="flex justify-between">
           <Inputname />
           <Delete onDelete={onDelete} />
