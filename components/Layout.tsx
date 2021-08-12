@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "./Headercomponents/Header";
 import Head from "next/head";
-import Sidebar from "./Sidebarcomponents/Sidebar";
+import Sidebar from "./Mainformcomponents/Sidebarcomponents/Sidebar";
 import Main from "./Mainformcomponents/Main";
 
 export default function Layout({ children }) {

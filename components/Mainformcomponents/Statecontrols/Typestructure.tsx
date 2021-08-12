@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
-import Artifactform from "../Artifactform";
-import Charform from "../Charform";
-import Weaponform from "../Weaponform";
+import Artifactform from "../Formcomponents/Artifactform";
+import Charform from "../Formcomponents/Charform";
+import Weaponform from "../Formcomponents/Weaponform";
 
 interface TypeTree {
   id: String;
