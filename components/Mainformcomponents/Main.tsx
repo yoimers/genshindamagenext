@@ -1,8 +1,8 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import Charform from "./Charform";
 import Weaponform from "./Weaponform";
 import Artifactform from "./Artifactform";
-import { type } from "node:os";
+import { cloneElement, cloneDeep } from "lodash";
 
 const statestree = [
   {
@@ -25,33 +25,7 @@ const typetree = [
         type: "art",
         children: [
           {
-            id: "4",
-            type: "wep",
-          },
-        ],
-      },
-      {
-        id: "3",
-        type: "art",
-        children: [
-          {
-            id: "5",
-            type: "wep",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: "10",
-    type: "char",
-    children: [
-      {
-        id: "11",
-        type: "art",
-        children: [
-          {
-            id: "12",
+            id: "3",
             type: "wep",
           },
         ],
@@ -74,7 +48,6 @@ interface TypeSubTree {
 }
 export default function Main() {
   const [types, setTypes] = useState<TypeTree[]>(typetree);
-  const isCorrect = structurecheck(types);
   const typeelement = typestructure(types);
 
   const deleteNode = (id: String): void => {
@@ -101,9 +74,6 @@ export default function Main() {
       return x;
     });
   };
-  const createNode = (id:String, type: String): void => {
-    "aa";
-  };
   const getmaximalId = (types: TypeTree[]): number => {
     let maxid = 0;
     types.forEach((type0) => {
@@ -123,7 +93,39 @@ export default function Main() {
     });
     return maxid;
   };
-  console.log(getmaximalId(types));
+  const createNode = (id: String, type: String): void => {
+    setTypes((prev) => {
+      let prevTypes = cloneDeep(prev);
+      const newNode = {
+        id: (getmaximalId(prevTypes) + 1).toString(),
+        type,
+        children: [],
+      };
+      prevTypes.forEach((type0) => {
+        if (type0.id === id) {
+          type0.children.push(newNode);
+        }
+        type0.children.forEach((type1) => {
+          if (type1.id === id) {
+            type1.children.push(newNode);
+            console.log("aawww");
+          }
+          type1.children.forEach((type2) => {});
+        });
+      });
+      const isCorrect = structurecheck(prevTypes);
+      if (isCorrect) {
+        return prevTypes;
+      } else {
+        return prev;
+      }
+    });
+  };
+  useEffect(() => {
+    console.log("aa");
+    createNode("2", "art");
+  }, []);
+
   function typestructure(types: TypeTree[]): ReactElement[] {
     const typeelement = types.map((type0) => {
       const typeelement0 = type0.children.map((type1) => {
