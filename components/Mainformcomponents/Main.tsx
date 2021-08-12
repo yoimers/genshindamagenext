@@ -55,7 +55,7 @@ interface DeleteNode {
 }
 
 type Action = CreateNode | DeleteNode;
-const a;
+const a=1;
 const reducer = (typetree: TypeTree[], action: Action): TypeTree[] => {
   switch (action.action) {
     case "createNode":
