@@ -101,13 +101,33 @@ export default function Main() {
       return x;
     });
   };
-  const createNode = (type: String):void => {
+  const createNode = (id:String, type: String): void => {
     "aa";
   };
+  const getmaximalId = (types: TypeTree[]): number => {
+    let maxid = 0;
+    types.forEach((type0) => {
+      if (maxid < Number(type0.id)) {
+        maxid = Number(type0.id);
+      }
+      type0.children.forEach((type1) => {
+        if (maxid < Number(type1.id)) {
+          maxid = Number(type1.id);
+        }
+        type1.children.forEach((type2) => {
+          if (maxid < Number(type2.id)) {
+            maxid = Number(type2.id);
+          }
+        });
+      });
+    });
+    return maxid;
+  };
+  console.log(getmaximalId(types));
   function typestructure(types: TypeTree[]): ReactElement[] {
     const typeelement = types.map((type0) => {
-      let typeelement0 = type0.children.map((type1) => {
-        let typeelement1 = type1.children.map((type2) => {
+      const typeelement0 = type0.children.map((type1) => {
+        const typeelement1 = type1.children.map((type2) => {
           if (type2.type === "wep") {
             return (
               <Weaponform
