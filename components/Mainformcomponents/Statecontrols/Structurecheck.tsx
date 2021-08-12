@@ -1,5 +1,6 @@
 import { TypeTree } from "../../Statuslist/type";
 
+
 //stateTreeが正常か判断
 export default function structurecheck(types: TypeTree[]): boolean {
   // charはtop層のみ, wepとartは2,3層にそれぞれ有る

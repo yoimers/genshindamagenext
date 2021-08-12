@@ -1,55 +1,4 @@
-export type StatusName = {
-  name: String;
-  a: String;
-  ab: String;
-  ac: String;
-  b: String;
-  bc: String;
-  bb: String;
-  c: String;
-  d: String;
-  e: String;
-  h: String;
-  hc: String;
-  hb: String;
-  em: String;
-  ema: String;
-  ea: String;
-  el: String; //熟知倍率
-  ar: String;
-  hr: String; //A変換比率
-  br: String;
-  ahs: String; //スキル
-  s: String;
-  r: String;
-  select: String;
-};
-export type Status = {
-  name: String;
-  a: number;
-  ab: number;
-  ac: number;
-  b: number;
-  bc: number;
-  bb: number;
-  c: number;
-  d: number;
-  e: number;
-  h: number;
-  hc: number;
-  hb: number;
-  em: number;
-  ema: number;
-  ea: number;
-  el: number; //熟知倍率
-  ar: number;
-  hr: number; //A変換比率
-  br: number;
-  ahs: number; //スキル
-  s: number;
-  r: number;
-  select: number;
-};
+
 export const stat = {
   name: "名前",
   a: "A%",
@@ -64,7 +13,6 @@ export const stat = {
   h: "HP%",
   hc: "固定HP",
   hb: "基礎HP",
-
   em: "熟知",
   ema: "反応倍率",
   ea: "反応倍率加算%",
