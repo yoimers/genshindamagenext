@@ -1,32 +1,9 @@
 import React, { ReactElement } from "react";
+import { TypeTree, Action } from "../../Statuslist/type";
 import Artifactform from "../Formcomponents/Artifactform";
 import Charform from "../Formcomponents/Charform";
 import Weaponform from "../Formcomponents/Weaponform";
 
-interface TypeTree {
-  id: String;
-  type: String;
-  children: {
-    id: String;
-    type: String;
-    children: TypeSubTree[];
-  }[];
-}
-interface TypeSubTree {
-  id: String;
-  type: String;
-}
-interface CreateNode {
-  action: "createNode";
-  id: String;
-  type: "char" | "art" | "wap";
-}
-interface DeleteNode {
-  action: "deleteNode";
-  id: String;
-}
-
-type Action = CreateNode | DeleteNode;
 export default function typestructure(types: TypeTree[], dispatch:React.Dispatch<Action>): ReactElement[] {
   const typeelement = types.map((type0) => {
     const typeelement0 = type0.children.map((type1) => {

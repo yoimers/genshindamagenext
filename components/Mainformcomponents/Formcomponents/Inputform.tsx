@@ -4,15 +4,9 @@ import Plusminusbutton from "./Plusminusbutton";
 
 interface InputForm {
   label: string[];
-  value: number;
-  setValue: Dispatch<SetStateAction<number>>;
 }
 
-export default function Inputform({
-  label,
-  value,
-  setValue,
-}: InputForm): ReactElement {
+export default function Inputform({ label }: InputForm): ReactElement {
   let select: ReactElement[] | ReactElement;
   if (label.length === 1) {
     select = <label className="block text-gray-200 h-7">{label}</label>;
@@ -35,11 +29,11 @@ export default function Inputform({
         </select>
       )}
       <div className="flex flex-row h-6 w-full">
-        <Plusminusbutton type="minus" setValue={setValue} add={-10} />
-        <Plusminusbutton type="minus" setValue={setValue} add={-1} />
-        <Input value={value} setValue={setValue} />
-        <Plusminusbutton type="plus" setValue={setValue} add={1} />
-        <Plusminusbutton type="plus" setValue={setValue} add={10} />
+        <Plusminusbutton type="minus" add={-10} />
+        <Plusminusbutton type="minus" add={-1} />
+        <Input  />
+        <Plusminusbutton type="plus" add={1} />
+        <Plusminusbutton type="plus" add={10} />
       </div>
     </span>
   );

@@ -31,7 +31,6 @@ export default function SideButton({ text, img, type }: ButtonData) {
     >
       <div className="flex flex-row-reverse opacity-20">
         <Image src={img} width={100} height={100} alt="Picture of the author" />
-        {/* <img src={img} width={100} className="absolute top-10 left-10"/> */}
       </div>
       <p className="block h-full w-full text-center absolute top-1/3 left-0 self-center text-3xl text-textcolor">
         {text}

@@ -1,18 +1,5 @@
 import { cloneDeep } from "lodash";
-
-interface TypeTree {
-  id: String;
-  type: String;
-  children: {
-    id: String;
-    type: String;
-    children: TypeSubTree[];
-  }[];
-}
-interface TypeSubTree {
-  id: String;
-  type: String;
-}
+import { TypeTree } from "../../Statuslist/type";
 
 export const deleteNode = (prev: TypeTree[], id: String): TypeTree[] => {
   let prevTree = cloneDeep(prev);

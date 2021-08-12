@@ -1,3 +1,5 @@
+import { TypeTree } from "../../Statuslist/type";
+
 export default function getmaximalId(types: TypeTree[]): number {
   let maxid = 0;
   types.forEach((type0) => {
@@ -16,19 +18,4 @@ export default function getmaximalId(types: TypeTree[]): number {
     });
   });
   return maxid;
-};
-
-interface TypeTree {
-  id: String;
-  type: String;
-  children: {
-    id: String;
-    type: String;
-    children: TypeSubTree[];
-  }[];
 }
-interface TypeSubTree {
-  id: String;
-  type: String;
-}
-

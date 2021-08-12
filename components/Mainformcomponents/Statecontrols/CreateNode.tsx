@@ -1,20 +1,7 @@
 import { cloneDeep } from "lodash";
 import structurecheck from "./Structurecheck";
 import getmaximalId from "./GetmaximalId";
-
-interface TypeTree {
-  id: String;
-  type: String;
-  children: {
-    id: String;
-    type: String;
-    children: TypeSubTree[];
-  }[];
-}
-interface TypeSubTree {
-  id: String;
-  type: String;
-}
+import { TypeTree } from "../../Statuslist/type";
 
 export const createNode = (
   prev: TypeTree[],

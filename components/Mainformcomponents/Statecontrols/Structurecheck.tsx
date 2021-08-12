@@ -1,16 +1,4 @@
-interface TypeTree {
-  id: String;
-  type: String;
-  children: {
-    id: String;
-    type: String;
-    children: TypeSubTree[];
-  }[];
-}
-interface TypeSubTree {
-  id: String;
-  type: String;
-}
+import { TypeTree } from "../../Statuslist/type";
 
 //stateTreeが正常か判断
 export default function structurecheck(types: TypeTree[]): boolean {

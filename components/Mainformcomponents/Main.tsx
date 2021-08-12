@@ -1,29 +1,51 @@
-import React, { ReactElement, useEffect, useReducer, useState } from "react";
+import React, { useReducer } from "react";
 import typestructure from "./Statecontrols/Typestructure";
 import { createNode } from "./Statecontrols/CreateNode";
 import { deleteNode } from "./Statecontrols/DeleteNode";
+import Sidebar from "./Sidebarcomponents/Sidebar";
+import { TypeTree, Action } from "../Statuslist/type";
 
-const statestree = [
-  {
-    id: "1",
-    stat: { a: "12", b: "43" },
-  },
-  {
-    id: "2",
-    stat: { d: "12" },
-  },
-];
+const st = {
+  name: "init",
+  a: 0,
+  ab: 0,
+  ac: 0,
+  b: 0,
+  bc: 0,
+  bb: 0,
+  c: 0,
+  d: 0,
+  e: 0,
+  h: 0,
+  hc: 0,
+  hb: 0,
+  em: 0,
+  ema: 0,
+  ea: 0,
+  el: 0, //熟知倍率
+  ar: 0,
+  hr: 0, //A変換比率
+  br: 0,
+  ahs: 0, //スキル
+  s: 0,
+  r: 0,
+  select: 0,
+};
+
 const typetree = [
   {
-    id: "1",
-    type: "char",
+    id: "0",
+    type: "cha",
+    state: st,
     children: [
       {
-        id: "2",
+        id: "1",
         type: "art",
+        state: st,
         children: [
           {
-            id: "3",
+            id: "2",
+            state: st,
             type: "wep",
           },
         ],
@@ -31,31 +53,7 @@ const typetree = [
     ],
   },
 ];
-interface TypeTree {
-  id: String;
-  type: String;
-  children: {
-    id: String;
-    type: String;
-    children: TypeSubTree[];
-  }[];
-}
-interface TypeSubTree {
-  id: String;
-  type: String;
-}
-interface CreateNode {
-  action: "createNode";
-  id: String;
-  type: "char" | "art" | "wap";
-}
-interface DeleteNode {
-  action: "deleteNode";
-  id: String;
-}
 
-type Action = CreateNode | DeleteNode;
-const a=2;
 const reducer = (typetree: TypeTree[], action: Action): TypeTree[] => {
   switch (action.action) {
     case "createNode":
@@ -70,9 +68,11 @@ export default function Main() {
   const typeelement = typestructure(types, dispatch);
 
   return (
-    <main className="flex flex-col flex-grow mr-3 border border-gray-800 rounded-lg shadow-sm">
-      {typeelement}
-    </main>
+    <div className="flex flex-nowrap bg-transparent min-h-full">
+      <main className="flex flex-col flex-grow mr-3 border border-gray-800 rounded-lg shadow-sm">
+        {typeelement}
+      </main>
+      <Sidebar />
+    </div>
   );
 }
-

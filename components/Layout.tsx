@@ -15,10 +15,7 @@ export default function Layout({ children }) {
       <div className="m-auto min-h-screen font-display bg-bgc select-none">
         <div className="mx-auto w-245 pt-4">
           <Header />
-          <div className="flex flex-nowrap bg-transparent min-h-full">
-            <Main />
-            <Sidebar />
-          </div>
+          <Main />
           <footer className="mt-2 bg-transparent h-32 border border-gray-800 rounded-lg shadow-sm">
             footer
           </footer>
