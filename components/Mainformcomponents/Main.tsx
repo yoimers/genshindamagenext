@@ -101,7 +101,9 @@ export default function Main() {
       return x;
     });
   };
-
+  const createNode = (type: String):void => {
+    "aa";
+  };
   function typestructure(types: TypeTree[]): ReactElement[] {
     const typeelement = types.map((type0) => {
       let typeelement0 = type0.children.map((type1) => {
@@ -156,7 +158,6 @@ export default function Main() {
     });
     return typeelement;
   }
-  let x=0;
   return (
     <main className="flex flex-col flex-grow mr-3 border border-gray-800 rounded-lg shadow-sm">
       {typeelement}
