@@ -16,7 +16,12 @@ export default function useDragdodoco(type: Equip | 'culc', dispatch: React.Disp
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult<DropResult>();
       if (item && dropResult && type !== 'culc') {
-        dispatch({ action: 'createNode', id: dropResult.id, type: type });
+        //alert(`You dropped ${item.name} into ${dropResult.name}!`);
+        if (item.name === dropResult.name) {
+          dispatch({ action: 'siblingNode', id: dropResult.id, type: type });
+        } else {
+          dispatch({ action: 'createNode', id: dropResult.id, type: type });
+        }
       }
     },
     collect: (monitor) => ({

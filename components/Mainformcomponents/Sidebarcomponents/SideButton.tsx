@@ -26,6 +26,10 @@ export default function SideButton({ text, img, type }: ButtonData) {
     if (type === 'char' && types.length === 0) {
       dispatch({ action: 'createNode', id: '0', type: 'char' });
     }
+    if (type === 'culc') {
+      localStorage.setItem('StateTree', JSON.stringify(types));
+      //以下計算処理
+    }
   };
   switch (type) {
     case 'char':

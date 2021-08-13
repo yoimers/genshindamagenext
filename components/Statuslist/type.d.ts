@@ -73,13 +73,23 @@ interface CreateNode {
   action: 'createNode';
   id: String;
   type: Equip;
+  status?: Status;
 }
 interface DeleteNode {
   action: 'deleteNode';
   id: String;
 }
-
-export type Action = CreateNode | DeleteNode;
+interface InitNode {
+  action: 'initNode';
+  tree: TypeTree[];
+}
+interface SiblingNode {
+  action: 'siblingNode';
+  id: String;
+  type: Equip;
+  status?: Status;
+}
+export type Action = CreateNode | DeleteNode | InitNode | SiblingNode;
 
 interface Button {
   type: 'plus' | 'minus';

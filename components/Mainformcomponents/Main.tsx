@@ -6,41 +6,9 @@ import Sidebar from './Sidebarcomponents/Sidebar';
 import { TypeTree, Action } from '../Statuslist/type';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
+import { initNode } from './Statecontrols/InitNode';
+import { siblingNode } from './Statecontrols/SiblingNode';
 
-const typetree: TypeTree[] = [
-  {
-    id: '0',
-    type: 'char',
-    children: [
-      {
-        id: '1',
-        type: 'art',
-        children: [
-          {
-            id: '2',
-            type: 'wep',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: '3',
-    type: 'char',
-    children: [
-      {
-        id: '4',
-        type: 'wep',
-        children: [
-          {
-            id: '5',
-            type: 'art',
-          },
-        ],
-      },
-    ],
-  },
-];
 export const StateContext = createContext({} as { types: TypeTree[]; dispatch: React.Dispatch<Action> });
 const reducer = (typetree: TypeTree[], action: Action): TypeTree[] => {
   switch (action.action) {
@@ -48,13 +16,23 @@ const reducer = (typetree: TypeTree[], action: Action): TypeTree[] => {
       return createNode(typetree, action.id, action.type);
     case 'deleteNode':
       return deleteNode(typetree, action.id);
+    case 'initNode':
+      return initNode(action.tree);
+    case 'siblingNode':
+      return siblingNode(typetree, action.id, action.type);
   }
 };
 
 export default function Main() {
-  const [types, dispatch] = useReducer(reducer, typetree);
+  const [types, dispatch] = useReducer(reducer, [] as TypeTree[]);
   const typeelement = typestructure(types, dispatch);
-
+  useEffect(() => {
+    const typestree: TypeTree[] = JSON.parse(localStorage.getItem('StateTree'));
+    dispatch({ action: 'initNode', tree: typestree });
+  }, []);
+  useEffect(() => {
+    localStorage.setItem('StateTree', JSON.stringify(types));
+  }, [types]);
   return (
     <StateContext.Provider value={{ types, dispatch }}>
       <DndProvider backend={HTML5Backend}>

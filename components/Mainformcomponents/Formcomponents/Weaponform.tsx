@@ -7,7 +7,7 @@ import useDropdodoco from './useComponents/useDropdodoco';
 
 const accept: Equip[] = ['char', 'art', 'wep'];
 export default function Weaponform({ children, g, onDelete, id }: any) {
-  const { canDrop, isOver, drop, bg } = useDropdodoco(g, id, accept);
+  const { canDrop, isOver, drop, bg } = useDropdodoco(g, id, 'wep', accept);
   return (
     <div className={`ml-${2 * g}`}>
       <div className={`h-25 border border-blue-300 rounded-md ${bg} transition-opacity duration-100`} ref={drop}>

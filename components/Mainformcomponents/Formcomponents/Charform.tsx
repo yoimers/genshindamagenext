@@ -7,7 +7,7 @@ import useDropdodoco from './useComponents/useDropdodoco';
 
 const accept: Equip[] = ['char', 'art', 'wep'];
 export default function Charform({ children, g, onDelete, id }: any) {
-  const { canDrop, isOver, drop, bg } = useDropdodoco(g, id, accept);
+  const { canDrop, isOver, drop, bg } = useDropdodoco(g, id, 'char', accept);
   return (
     <div className={`ml-${2 * g}`}>
       <div className={`h-40 border border-red-400 rounded-md ${bg} transition-opacity duration-100`} ref={drop}>
