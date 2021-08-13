@@ -1,33 +1,59 @@
 export type StatusName = {
-  name: String;
-  a: String;
-  ab: String;
-  ac: String;
-  b: String;
-  bc: String;
-  bb: String;
-  c: String;
-  d: String;
-  e: String;
-  h: String;
-  hc: String;
-  hb: String;
-  em: String;
-  ema: String;
-  ea: String;
-  el: String; //熟知倍率
-  ar: String;
-  hr: String; //A変換比率
-  br: String;
-  ahs: String; //スキル
-  s: String;
-  r: String;
-  select: String;
+  name: string;
+  a: string;
+  ab: string;
+  ac: string;
+  b: string;
+  bc: string;
+  bb: string;
+  c: string;
+  d: string;
+  e: string;
+  h: string;
+  hc: string;
+  hb: string;
+  em: string;
+  ema: string;
+  ea: string;
+  el: string; //熟知倍率
+  ar: string;
+  hr: string; //A変換比率
+  br: string;
+  ahs: string; //スキル
+  s: string;
+  r: string;
+  select: string;
 };
 export type Label = 'name' | 'a' | 'ab' | 'ac' | 'b' | 'bc' | 'bb' | 'c' | 'd' | 'e' | 'h' | 'hc' | 'hb' | 'em' | 'ema' | 'ea' | 'el' | 'ar' | 'hr' | 'br' | 'ahs' | 's' | 'r' | 'select' | 'n';
+export type CharArtWepFormState = { [chilid: string]: { name: Label; value: string | number } };
+export type AllFormState = { [id: string]: CharArtWepFormState };
+interface CreateChangeCharArtWepAction {
+  action: 'createchangecharartwepaction';
+  id: string;
+  childid: string;
+  name?: Label;
+  value?: number;
+  add?: number;
+}
+interface InitChangeCharArtWepAction {
+  action: 'initchangecharartwepaction';
+  id: string;
+  childid: string;
+  name: Label;
+  value: number | string;
+}
+interface DeleteChangeCharArtWepAction {
+  action: 'deletecharartwepaction';
+  id: string;
+}
+interface LoadSetCharArtWepAction {
+  action: 'loadsetcharartwepaction';
+  status: AllFormState;
+}
+export type CharArtWepAction = CreateChangeCharArtWepAction | InitChangeCharArtWepAction | DeleteChangeCharArtWepAction | LoadSetCharArtWepAction;
 
 export type Status = {
-  name: String;
+  name: string;
   a: number;
   ab: number;
   ac: number;
@@ -54,30 +80,30 @@ export type Status = {
 };
 
 export type TypeTree = {
-  id: String;
+  id: string;
   type: Equip;
   children: {
-    id: String;
+    id: string;
     type: Equip;
     children: TypeSubTree[];
   }[];
 };
 
 interface TypeSubTree {
-  id: String;
+  id: string;
   type: Equip;
 }
 export type Equip = 'char' | 'wep' | 'art';
 
 interface CreateNode {
   action: 'createNode';
-  id: String;
+  id: string;
   type: Equip;
   status?: Status;
 }
 interface DeleteNode {
   action: 'deleteNode';
-  id: String;
+  id: string;
 }
 interface InitNode {
   action: 'initNode';
@@ -85,18 +111,34 @@ interface InitNode {
 }
 interface SiblingNode {
   action: 'siblingNode';
-  id: String;
+  id: string;
   type: Equip;
   status?: Status;
 }
 export type Action = CreateNode | DeleteNode | InitNode | SiblingNode;
 
+interface CreateStateNode {
+  action: 'createStatNode';
+  id: string;
+  status: Status;
+}
+interface DeleteStateNode {
+  action: 'deleteStatNode';
+  id: string;
+}
+export type StatAction = CreateStateNode | DeleteStateNode;
+
 interface Button {
   type: 'plus' | 'minus';
-  onClick: () => void;
+  id: string;
+  childid: string;
+  add: number;
 }
 
 interface InputForm {
-  label: Label[];
-  id: String;
+  label: {
+    [key: Label]: number;
+  };
+  id: string;
+  childid: string;
 }

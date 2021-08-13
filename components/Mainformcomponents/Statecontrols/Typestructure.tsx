@@ -4,7 +4,10 @@ import Artifactform from '../Formcomponents/Artifactform';
 import Charform from '../Formcomponents/Charform';
 import Weaponform from '../Formcomponents/Weaponform';
 
-export default function typestructure(types: TypeTree[], dispatch: React.Dispatch<Action>): ReactElement[] {
+export default function typestructure(types: TypeTree[], dispatch: React.Dispatch<Action>): ReactElement[] | ReactElement {
+  if (!types) {
+    return <></>;
+  }
   const typeelement = types.map((type0) => {
     const typeelement0 = type0.children.map((type1) => {
       const typeelement1 = type1.children.map((type2) => {

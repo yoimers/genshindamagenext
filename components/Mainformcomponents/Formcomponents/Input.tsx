@@ -1,23 +1,18 @@
-import React, { ReactElement, useState } from 'react';
-import { Action, Label } from '../../Statuslist/type';
+import React, { ReactElement, useContext, useEffect } from 'react';
+import { AllFormContext } from '../Main';
 
 type Input = {
-  value: number;
-  setValue: React.Dispatch<
-    React.SetStateAction<{
-      name: Label;
-      value: number;
-      id: String;
-    }>
-  >;
+  id: string;
+  childid: string;
 };
-export default function Input({ value, setValue }: Input): ReactElement {
+export default function Input({ id, childid }: Input): ReactElement {
+  const { status, statusdispatch } = useContext(AllFormContext);
   const onChange = (e) => {
     const res = e.target.value.replace(/[^0-9]/g, '');
-    setValue((prev) => {
-      return { ...prev, value: res };
-    });
+    statusdispatch({ action: 'createchangecharartwepaction', id, childid, value: res });
   };
+  const value = status ? (status[id] ? (status[id][childid] ? status[id][childid].value : 0) : 0) : 0;
+
   return (
     <input
       type="text"

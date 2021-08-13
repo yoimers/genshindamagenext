@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import Image from 'next/image';
 import useDragdodoco from '../Formcomponents/useComponents/useDragdodoco';
-import { StateContext } from '../Main';
+import { AllFormContext, StructureContext } from '../Main';
 import { Equip } from '../../Statuslist/type';
+import calculator from './calculator';
 
 interface ButtonData {
   text: string;
@@ -18,7 +19,9 @@ interface DropResult {
 }
 
 export default function SideButton({ text, img, type }: ButtonData) {
-  const { types, dispatch } = useContext(StateContext);
+  const { types, dispatch } = useContext(StructureContext);
+  const { status, statusdispatch } = useContext(AllFormContext);
+
   const { isDragging, drag } = useDragdodoco(type, dispatch);
   let c: string;
   let m: string = 'mt-1';
@@ -27,8 +30,10 @@ export default function SideButton({ text, img, type }: ButtonData) {
       dispatch({ action: 'createNode', id: '0', type: 'char' });
     }
     if (type === 'culc') {
-      localStorage.setItem('StateTree', JSON.stringify(types));
+      //localStorage.setItem('StateTree', JSON.stringify(types));
       //以下計算処理
+      localStorage.setItem('Statuslist', JSON.stringify(status));
+      calculator({ types, status });
     }
   };
   switch (type) {
