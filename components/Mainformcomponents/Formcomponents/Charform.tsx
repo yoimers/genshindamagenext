@@ -26,7 +26,7 @@ export default function Charform({ children, g, id }: any) {
 
   return (
     <animated.div style={props}>
-      <div className={`ml-${2 * g}`}>
+      <div className={`ml-0`}>
         <div className={`h-40 border border-red-400 rounded-md ${bg} transition-opacity duration-100`} ref={drop}>
           <div ref={drag}>
             <div className="flex justify-between">

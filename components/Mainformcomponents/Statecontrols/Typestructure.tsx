@@ -1,14 +1,15 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement, useContext, useEffect } from 'react';
 import { TypeTree, Action } from '../../Statuslist/type';
 import Artifactform from '../Formcomponents/Artifactform';
 import Charform from '../Formcomponents/Charform';
 import Weaponform from '../Formcomponents/Weaponform';
+import { StructureContext } from '../Main';
 
-export default function typestructure(types: TypeTree[], dispatch: React.Dispatch<Action>): ReactElement[] | ReactElement {
-  if (!types) {
+export default function Typestructure(): ReactElement {
+  const { types, dispatch } = useContext(StructureContext);
+  if (types.length === 0) {
     return <></>;
   }
-
   const typeelement = types.map((type0) => {
     const typeelement0 = type0.children.map((type1) => {
       const typeelement1 = type1.children.map((type2) => {
@@ -41,5 +42,10 @@ export default function typestructure(types: TypeTree[], dispatch: React.Dispatc
       );
     }
   });
-  return typeelement;
+
+  return (
+    <div className="flex flex-col flex-grow  mr-2 border border-gray-800 rounded-lg shadow-sm p-1">
+      {typeelement}
+    </div>
+  );
 }

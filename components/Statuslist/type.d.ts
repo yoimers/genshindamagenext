@@ -24,7 +24,32 @@ export type StatusName = {
   r: string;
   select: string;
 };
-export type Label = 'name' | 'a' | 'ab' | 'ac' | 'b' | 'bc' | 'bb' | 'c' | 'd' | 'e' | 'h' | 'hc' | 'hb' | 'em' | 'ema' | 'ea' | 'el' | 'ar' | 'hr' | 'br' | 'ahs' | 's' | 'r' | 'select' | 'n';
+export type Label =
+  | 'name'
+  | 'a'
+  | 'ab'
+  | 'ac'
+  | 'b'
+  | 'bc'
+  | 'bb'
+  | 'c'
+  | 'd'
+  | 'e'
+  | 'h'
+  | 'hc'
+  | 'hb'
+  | 'em'
+  | 'ema'
+  | 'ea'
+  | 'el'
+  | 'ar'
+  | 'hr'
+  | 'br'
+  | 'ahs'
+  | 's'
+  | 'r'
+  | 'select'
+  | 'n';
 export type CharArtWepFormState = { [chilid: string]: { name: Label; value: string | number } };
 export type AllFormState = { [id: string]: CharArtWepFormState };
 interface CreateChangeCharArtWepAction {
@@ -55,7 +80,12 @@ interface CopyCharArtWepAction {
   fromid: string;
   toid: string;
 }
-export type CharArtWepAction = CreateChangeCharArtWepAction | InitChangeCharArtWepAction | DeleteChangeCharArtWepAction | LoadSetCharArtWepAction | CopyCharArtWepAction;
+export type CharArtWepAction =
+  | CreateChangeCharArtWepAction
+  | InitChangeCharArtWepAction
+  | DeleteChangeCharArtWepAction
+  | LoadSetCharArtWepAction
+  | CopyCharArtWepAction;
 
 export type Status = {
   name: string;
@@ -147,3 +177,21 @@ interface InputForm {
   id: string;
   childid: string;
 }
+export type StatButtons = {
+  [id: string]: {
+    culcname: string;
+    culcresult: boolean | CalcResult; //false
+  };
+};
+
+export type CulcResult = {
+  t: number[];
+  a: number[];
+  c: number[];
+  d: number[];
+  b: number[];
+  h: number[];
+};
+export type Chart = {
+  id: string | false;
+};

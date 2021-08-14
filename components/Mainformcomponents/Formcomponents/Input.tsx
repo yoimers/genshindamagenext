@@ -7,6 +7,7 @@ type Input = {
 };
 export default function Input({ id, childid }: Input): ReactElement {
   const { status, statusdispatch } = useContext(AllFormContext);
+
   const onChange = (e) => {
     const hankaku = hankaku2Zenkaku(e.target.value);
     const res = hankaku.replace(/[^0-9]/g, '');

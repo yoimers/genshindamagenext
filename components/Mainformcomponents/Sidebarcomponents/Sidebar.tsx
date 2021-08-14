@@ -32,7 +32,7 @@ const Buttondata: ButtonData[] = [
 ];
 export default function Sidebar() {
   return (
-    <aside className="w-52 h-side border border-gray-800 rounded-lg shadow-sm sticky top-8">
+    <aside className="w-52 h-full rounded-lg shadow-sm sticky top-2 p-1">
       {Buttondata.map((data) => {
         return <SideButton key={data.text} text={data.text} img={data.img} type={data.type} />;
       })}

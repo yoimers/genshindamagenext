@@ -7,11 +7,12 @@ type Input = {
   status: AllFormState;
 };
 
-export default function calculator({ types, status }: Input) {
+export default function calculator({ types, status }: Input): StatusName[] {
   const newtypes = addsibilingNode(types);
   const allcase = getallcase(status, newtypes);
-  console.log('allcase', allcase);
+  return allcase;
 }
+
 function addsibilingNode(types: TypeTree[]): TypeTree[] {
   const newtypes = cloneDeep(types);
 

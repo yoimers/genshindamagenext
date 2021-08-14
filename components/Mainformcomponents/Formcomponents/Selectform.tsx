@@ -38,7 +38,9 @@ export default function Selectform({ label, id, childid }: InputForm) {
   }, []);
 
   const onChange = (e) => {
-    statusdispatch({ action: 'createchangecharartwepaction', id, childid, name: e.target.value, value: 0 });
+    const name = e.target.value;
+    const value = label[name];
+    statusdispatch({ action: 'createchangecharartwepaction', id, childid, name, value });
   };
   const value = status[id] ? (status[id][childid] ? status[id][childid].name : 'n') : 'n';
   return (

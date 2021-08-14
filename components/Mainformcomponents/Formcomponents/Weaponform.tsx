@@ -7,6 +7,7 @@ import Inputname from './Inputname';
 import useDragdodoco from './useComponents/useDragdodoco';
 import useDropdodoco from './useComponents/useDropdodoco';
 import { useSpring, animated } from 'react-spring';
+import ABHPrateform from './ABHPrateform';
 
 const accept: Equip[] = ['char', 'art', 'wep'];
 
@@ -26,7 +27,7 @@ export default function Weaponform({ children, g, id }: any) {
 
   return (
     <animated.div style={props}>
-      <div className={`ml-${2 * g}`}>
+      <div className={`ml-2`}>
         <div className={`h-25 border border-blue-300 rounded-md ${bg} transition-opacity duration-100`} ref={drop}>
           <div ref={drag}>
             <div className="flex justify-between">
@@ -39,6 +40,7 @@ export default function Weaponform({ children, g, id }: any) {
               <Inputform label={{ n: 0, c: 22.1, d: 66.2, a: 49.6, b: 58.3, h: 46.6, e: 20, em: 165, hr: 1.2 }} id={id} childid={'3'} />
               <Inputform label={{ n: 0, c: 22.1, d: 66.2, a: 49.6, b: 58.3, h: 46.6, e: 20, em: 165, hr: 1.2 }} id={id} childid={'4'} />
               <Inputform label={{ n: 0, c: 22.1, d: 66.2, a: 49.6, b: 58.3, h: 46.6, e: 20, em: 165, hr: 1.2 }} id={id} childid={'5'} />
+              {g === 2 && <ABHPrateform id={id} childid={'6'} />}
             </div>
           </div>
         </div>

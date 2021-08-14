@@ -69,7 +69,7 @@ export const st = {
   ema: 0,
   ea: 0,
   el: 0, //熟知倍率
-  ar: 100,
+  ar: 0,
   hr: 0, //A変換比率
   br: 0,
   ahs: 0, //スキル
