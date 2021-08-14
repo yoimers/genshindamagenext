@@ -50,7 +50,12 @@ interface LoadSetCharArtWepAction {
   action: 'loadsetcharartwepaction';
   status: AllFormState;
 }
-export type CharArtWepAction = CreateChangeCharArtWepAction | InitChangeCharArtWepAction | DeleteChangeCharArtWepAction | LoadSetCharArtWepAction;
+interface CopyCharArtWepAction {
+  action: 'copycharartwepaction';
+  fromid: string;
+  toid: string;
+}
+export type CharArtWepAction = CreateChangeCharArtWepAction | InitChangeCharArtWepAction | DeleteChangeCharArtWepAction | LoadSetCharArtWepAction | CopyCharArtWepAction;
 
 export type Status = {
   name: string;

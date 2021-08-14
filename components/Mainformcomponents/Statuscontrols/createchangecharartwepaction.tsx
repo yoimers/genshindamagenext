@@ -5,17 +5,18 @@ export default function createchangecharartwepaction(prevState: AllFormState, ac
   let prev = cloneDeep(prevState);
   if (action.action === 'createchangecharartwepaction') {
     if (action.add) {
-      const value = prev[action.id.toString()][action.childid.toString()].value;
+      let value = prev[action.id.toString()][action.childid.toString()].value;
+      value = Number(value) + action.add >= 0 ? Number(value) + action.add : 0;
       const name = prev[action.id.toString()][action.childid.toString()].name;
-      prev[action.id.toString()][action.childid.toString()] = { name, value: Number(value) + action.add };
+      prev[action.id.toString()][action.childid.toString()] = { name, value };
     } else {
-      console.log('a');
-      const value = action.value ? action.value : prev[action.id.toString()][action.childid.toString()].value;
       const name = action.name ? action.name : prev[action.id.toString()][action.childid.toString()].name;
       if (name === 'name') {
-        prev[action.id.toString()][action.childid.toString()] = { name, value: value.toString() };
+        const value = action.value ? hankaku2Zenkaku(action.value.toString()) : '';
+        prev[action.id.toString()][action.childid.toString()] = { name, value };
       } else {
-        prev[action.id.toString()][action.childid.toString()] = { name, value: Number(value) };
+        const value = action.value ? Number(action.value) : 0;
+        prev[action.id.toString()][action.childid.toString()] = { name, value };
       }
     }
   } else if (action.action === 'initchangecharartwepaction') {
@@ -24,4 +25,10 @@ export default function createchangecharartwepaction(prevState: AllFormState, ac
     prev[action.id.toString()] = { ...prev[action.id.toString()], [childid]: content };
   }
   return prev;
+}
+
+function hankaku2Zenkaku(str: string): string {
+  return str.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) {
+    return String.fromCharCode(s.charCodeAt(0) - 0xfee0);
+  });
 }

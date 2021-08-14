@@ -4,6 +4,7 @@ import useDragdodoco from '../Formcomponents/useComponents/useDragdodoco';
 import { AllFormContext, StructureContext } from '../Main';
 import { Equip } from '../../Statuslist/type';
 import calculator from './calculator';
+import Sidebar from './Sidebar';
 
 interface ButtonData {
   text: string;
@@ -22,7 +23,7 @@ export default function SideButton({ text, img, type }: ButtonData) {
   const { types, dispatch } = useContext(StructureContext);
   const { status, statusdispatch } = useContext(AllFormContext);
 
-  const { isDragging, drag } = useDragdodoco(type, dispatch);
+  const { isDragging, drag } = useDragdodoco(type, '0', true, dispatch, statusdispatch);
   let c: string;
   let m: string = 'mt-1';
   const onClick = () => {

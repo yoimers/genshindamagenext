@@ -12,7 +12,7 @@ export default function Layout({ children }) {
         <title>GENSHIN</title>
         <link rel="icon" href="/myfavicon.ico" />
       </Head>
-      <div className="m-auto min-h-screen font-display bg-bgc select-none">
+      <div className="m-auto min-h-screen font-display select-none">
         <div className="mx-auto w-245 pt-4">
           <Header />
           <Main />

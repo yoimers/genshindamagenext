@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect } from 'react';
+import React, { ReactElement, useContext } from 'react';
 import { AllFormContext } from '../Main';
 
 type Input = {
@@ -8,8 +8,14 @@ type Input = {
 export default function Input({ id, childid }: Input): ReactElement {
   const { status, statusdispatch } = useContext(AllFormContext);
   const onChange = (e) => {
-    const res = e.target.value.replace(/[^0-9]/g, '');
-    statusdispatch({ action: 'createchangecharartwepaction', id, childid, value: res });
+    const hankaku = hankaku2Zenkaku(e.target.value);
+    const res = hankaku.replace(/[^0-9]/g, '');
+    statusdispatch({ action: 'createchangecharartwepaction', id, childid, value: Number(res) });
+  };
+  const hankaku2Zenkaku = (str: string): string => {
+    return str.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) {
+      return String.fromCharCode(s.charCodeAt(0) - 0xfee0);
+    });
   };
   const value = status ? (status[id] ? (status[id][childid] ? status[id][childid].value : 0) : 0) : 0;
 

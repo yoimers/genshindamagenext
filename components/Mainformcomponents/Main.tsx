@@ -11,6 +11,8 @@ import { siblingNode } from './Statecontrols/SiblingNode';
 import createchangecharartwepaction from './Statuscontrols/createchangecharartwepaction';
 import deletechangecharartwepaction from './Statuscontrols/deletechangecharartwepaction';
 import { initchangecharartwepaction } from './Statuscontrols/initchangecharartwepaction';
+import useDropdodoco from './Formcomponents/useComponents/useDropdodoco';
+import copycharartwepaction from './Statuscontrols/copycharartwepaction';
 
 export const StructureContext = createContext({} as { types: TypeTree[]; dispatch: React.Dispatch<Action> });
 export const AllFormContext = createContext({} as { status: AllFormState; statusdispatch: React.Dispatch<CharArtWepAction> });
@@ -38,6 +40,8 @@ const statreducer = (prevState: AllFormState, action: CharArtWepAction): AllForm
       return deletechangecharartwepaction(prevState, action);
     case 'loadsetcharartwepaction':
       return initchangecharartwepaction(action.status);
+    case 'copycharartwepaction':
+      return copycharartwepaction(prevState, action);
   }
 };
 const inittree: TypeTree[] = [
@@ -61,7 +65,6 @@ const inittree: TypeTree[] = [
 export default function Main() {
   const [types, dispatch] = useReducer(reducer, [] as TypeTree[]);
   const [status, statusdispatch] = useReducer(statreducer, {} as AllFormState);
-
   const typeelement = typestructure(types, dispatch);
 
   useEffect(() => {
