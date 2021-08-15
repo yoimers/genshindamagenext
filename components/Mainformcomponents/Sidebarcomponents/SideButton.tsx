@@ -33,9 +33,13 @@ export default function SideButton({ text, img, type }: ButtonData) {
     if (type === 'culc') {
       //localStorage.setItem('StateTree', JSON.stringify(types));
       //以下計算処理
+      const start = Date.now();
       localStorage.setItem('Statuslist', JSON.stringify(status));
       const allcase = calculator({ types, status });
       createstatbuttons(allcase, setButton);
+
+      const end = Date.now();
+      console.log('time: ', end - start);
     }
   };
   let c: string;

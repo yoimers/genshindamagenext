@@ -1,4 +1,4 @@
-import { AllFormState, StatusName, TypeSubTree, TypeTree } from '../../Statuslist/type';
+import { AllFormState, Status, StatusName, TypeSubTree, TypeTree } from '../../Statuslist/type';
 import { st } from '../../Statuslist/status';
 import { cloneDeep } from 'lodash';
 
@@ -7,7 +7,7 @@ type Input = {
   status: AllFormState;
 };
 
-export default function calculator({ types, status }: Input): StatusName[] {
+export default function calculator({ types, status }: Input): Status[] {
   const newtypes = addsibilingNode(types);
   const allcase = getallcase(status, newtypes);
   return allcase;
@@ -41,7 +41,7 @@ function addsibilingNode(types: TypeTree[]): TypeTree[] {
   return cloneDeep(newtypes);
 }
 
-function getallcase(status: AllFormState, types: TypeTree[]): StatusName[] {
+function getallcase(status: AllFormState, types: TypeTree[]): Status[] {
   const allcase = [];
   types.forEach((type0) => {
     type0.children.forEach((type1) => {

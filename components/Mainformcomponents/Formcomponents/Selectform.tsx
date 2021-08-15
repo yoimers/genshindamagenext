@@ -32,9 +32,6 @@ export default function Selectform({ label, id, childid }: InputForm) {
       name = localstatus[id][childid].name;
     }
     statusdispatch({ action: 'initchangecharartwepaction', id, childid, name, value });
-    return () => {
-      statusdispatch({ action: 'deletecharartwepaction', id });
-    };
   }, []);
 
   const onChange = (e) => {
@@ -48,7 +45,11 @@ export default function Selectform({ label, id, childid }: InputForm) {
       {key.length === 1 ? (
         select
       ) : (
-        <select className="p-0 h-7 w-full bg-transparent border rounded bg-bgc text-gray-200" value={value} onChange={onChange}>
+        <select
+          className="p-0 h-7 w-full bg-transparent border rounded bg-bgc text-gray-200"
+          value={value}
+          onChange={onChange}
+        >
           {select}
         </select>
       )}

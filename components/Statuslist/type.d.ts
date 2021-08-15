@@ -52,12 +52,13 @@ export type Label =
   | 'n';
 export type CharArtWepFormState = { [chilid: string]: { name: Label; value: string | number } };
 export type AllFormState = { [id: string]: CharArtWepFormState };
+
 interface CreateChangeCharArtWepAction {
   action: 'createchangecharartwepaction';
   id: string;
   childid: string;
   name?: Label;
-  value?: number;
+  value?: string;
   add?: number;
 }
 interface InitChangeCharArtWepAction {
@@ -180,18 +181,26 @@ interface InputForm {
 export type StatButtons = {
   [id: string]: {
     culcname: string;
-    culcresult: boolean | CalcResult; //false
+    culctype: 'opt' | 'compare';
+    culcresult: false | CulcResults; //false
   };
 };
+export type CulcResults = CulcResult[];
 
 export type CulcResult = {
-  t: number[];
-  a: number[];
-  c: number[];
-  d: number[];
-  b: number[];
-  h: number[];
+  t: number;
+  a: number;
+  c: number;
+  d: number;
+  b: number;
+  h: number;
+  expecteddamage: number;
+  expected_max_damage: number;
+  maxdamage: number;
+  mindamage: number;
+  status: Status;
 };
+
 export type Chart = {
   id: string | false;
 };

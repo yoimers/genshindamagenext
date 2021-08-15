@@ -1,21 +1,31 @@
 import { AllFormState, CharArtWepAction, CharArtWepFormState } from '../../Statuslist/type';
 import { cloneDeep } from 'lodash';
 
-export default function createchangecharartwepaction(prevState: AllFormState, action: CharArtWepAction): AllFormState {
+export default function createchangecharartwepaction(
+  prevState: AllFormState,
+  action: CharArtWepAction
+): AllFormState {
   let prev = cloneDeep(prevState);
   if (action.action === 'createchangecharartwepaction') {
     if (action.add) {
       let value = prev[action.id.toString()][action.childid.toString()].value;
-      value = Number(value) + action.add >= 0 ? Number(value) + action.add : 0;
+      value = Number(value) + action.add >= 0 ? Number(value) + Number(action.add) : 0;
+      const str = value.toString().split('.');
+      if (str.length === 2) {
+        value =
+          str[0] + '.' + str[1].slice(0, 1) + (str[1].length !== 1 ? str[1].slice(-1)[0] : '');
+      }
       const name = prev[action.id.toString()][action.childid.toString()].name;
       prev[action.id.toString()][action.childid.toString()] = { name, value };
     } else {
-      const name = action.name ? action.name : prev[action.id.toString()][action.childid.toString()].name;
+      const name = action.name
+        ? action.name
+        : prev[action.id.toString()][action.childid.toString()].name;
       if (name === 'name') {
         const value = action.value ? hankaku2Zenkaku(action.value.toString()) : '';
         prev[action.id.toString()][action.childid.toString()] = { name, value };
       } else {
-        const value = action.value ? Number(action.value) : 0;
+        const value = action.value ? action.value : '0';
         prev[action.id.toString()][action.childid.toString()] = { name, value };
       }
     }

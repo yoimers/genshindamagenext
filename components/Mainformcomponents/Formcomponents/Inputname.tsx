@@ -1,4 +1,5 @@
 import React, { ReactElement, useContext, useEffect } from 'react';
+import { AllFormState, Label } from '../../Statuslist/type';
 import { AllFormContext } from '../Main';
 
 type Input = {
@@ -10,13 +11,30 @@ export default function Inputname({ id, childid }: Input): ReactElement {
   const { status, statusdispatch } = useContext(AllFormContext);
 
   const onChange = (e) => {
-    statusdispatch({ action: 'createchangecharartwepaction', id, childid, name: 'name', value: e.target.value });
+    statusdispatch({
+      action: 'createchangecharartwepaction',
+      id,
+      childid,
+      name: 'name',
+      value: e.target.value,
+    });
   };
   useEffect(() => {
-    statusdispatch({ action: 'initchangecharartwepaction', id, childid, name: 'name', value: '' });
+    const localstatus: AllFormState = JSON.parse(localStorage.getItem('Statuslist'));
+    const name: Label = 'name';
+    let value: string | number = '';
+    if (localstatus && localstatus[id] && localstatus[id][childid]) {
+      value = localstatus[id][childid].value;
+    }
+    statusdispatch({ action: 'initchangecharartwepaction', id, childid, name, value });
   }, []);
-
-  const value = status ? (status[id] ? (status[id][childid] ? status[id][childid].value : '') : '') : '';
+  const value = status
+    ? status[id]
+      ? status[id][childid]
+        ? status[id][childid].value
+        : ''
+      : ''
+    : '';
 
   return (
     <div className="flex items-center mt-2 ml-0 mb-0">

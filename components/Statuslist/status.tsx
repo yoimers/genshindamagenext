@@ -49,7 +49,7 @@ export const initst = {
   ahs: 0, //スキル
   s: 0,
   r: 0,
-  select: 100,
+  select: 0,
 };
 export const st = {
   name: '',
@@ -75,5 +75,5 @@ export const st = {
   ahs: 0, //スキル
   s: 0,
   r: 0,
-  select: 100,
+  select: 0,
 };
