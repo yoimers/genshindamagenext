@@ -62,7 +62,7 @@ function addstate(status: AllFormState, type: TypeTree | TypeSubTree, content: S
     if (v.name === 'name') {
       content[v.name] = v.value.toString() + content[v.name];
     } else {
-      content[v.name] += Number(v.value);
+      content[v.name] = Number((content[v.name] + Number(v.value)).toFixed(1));
     }
   });
 }

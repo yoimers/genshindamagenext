@@ -224,7 +224,17 @@ function Yaxis(culc: Culc) {
   const Yaxis = [];
   if (culc.culcresult === false) return [];
   const maxobj = culc.culcresult.slice(-1)[0];
-  const max = maxobj.d < maxobj.a ? maxobj.a : maxobj.d;
+  // const max = maxobj.d < maxobj.a ? maxobj.a : maxobj.d;
+  const max = Object.values(culc.culcresult).reduce((ac, cu) => {
+    const prevmax = Object.entries(cu).reduce((ac1, cu1) => {
+      if (['a', 'b', 'h', 'c', 'd'].includes(cu1[0])) {
+        return cu1[1] <= ac1 ? ac1 : cu1[1];
+      } else {
+        return ac1;
+      }
+    }, 0);
+    return prevmax <= ac ? ac : prevmax;
+  }, 0);
   let i = 0;
   for (i = 0; 20 * i < max; i++) {
     Yaxis.push(20 * i);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { CulcResults, StatButtons, Status, StatusName } from '../../Statuslist/type';
+import optimizeculc_new from '../Chartcomponents/optculc_new';
 import optimizeculc from '../Chartcomponents/optimizeculc';
 
 export default function createstatbuttons(

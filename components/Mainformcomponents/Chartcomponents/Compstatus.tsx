@@ -228,7 +228,7 @@ function Yaxis(results: false | CulcResults) {
     for (i = Math.floor(min / 0.05); 0.05 * i < max; i += 1) {
       Yaxis.push(Math.round(5 * i) / 100);
     }
-    Yaxis.push(0.05 * i);
+    Yaxis.push(Number((0.05 * i).toFixed(2)));
     return Yaxis;
   } else {
     let i = 0;

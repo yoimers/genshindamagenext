@@ -9,7 +9,7 @@ export default function optimizeculc(id: string, allcase: Status[]): CulcResults
   const status: Status = allcase[id];
   const results: CulcResults = [];
   status.el = ((25 / 9) * status.em) / (status.em + 1400) + status.ea / 100;
-  for (let t = 0; t <= 160; t += 2) {
+  for (let t = 0; t <= 160; t += 4) {
     const result = damage_t(status, t);
     results.push(result);
   }
@@ -37,15 +37,15 @@ function damage_t(status: Status, t: number): CulcResult {
 
   const result: CulcResult = {
     t,
-    a: Number(newstatus.a.toFixed(0)),
-    b: Number(newstatus.b.toFixed(0)),
-    h: Number(newstatus.h.toFixed(0)),
-    c: Number(newstatus.c.toFixed(0)),
-    d: Number(newstatus.d.toFixed(0)),
-    expecteddamage: Number(expected_damage(newstatus).toFixed(0)),
-    expected_max_damage: Number(expected_max_damage(newstatus).toFixed(0)),
-    maxdamage: Number(max_damage(newstatus).toFixed(0)),
-    mindamage: Number(min_damage(newstatus).toFixed(0)),
+    a: Number(newstatus.a.toFixed(1)),
+    b: Number(newstatus.b.toFixed(1)),
+    h: Number(newstatus.h.toFixed(1)),
+    c: Number(newstatus.c.toFixed(1)),
+    d: Number(newstatus.d.toFixed(1)),
+    expecteddamage: Number(expected_damage(newstatus).toFixed(1)),
+    expected_max_damage: Number(expected_max_damage(newstatus).toFixed(1)),
+    maxdamage: Number(max_damage(newstatus).toFixed(1)),
+    mindamage: Number(min_damage(newstatus).toFixed(1)),
   };
   return result;
 }
@@ -72,7 +72,7 @@ function expecteddamage_t(
   //20→a,c,d = 55,5,58.2,78.1
   //60→a,c,d = 83.5,59.3,118.6
   //120→a,c,d = 85.6,88.6,177.2
-  const lam2 = 10 + t;
+  const lam2 = 4 + t / 60;
   return -expected_max_damage(newstatus) + lam2 * (c + n0 + n1 + n2 + n3 + n4);
 }
 
