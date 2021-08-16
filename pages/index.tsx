@@ -1,13 +1,11 @@
-import Head from "next/head";
-import Layout from "../components/Layout";
-import Link from "next/link";
+import Layout from '../components/Layout';
+import React from 'react';
+import Main from '../components/Mainformcomponents/Main';
 
 export default function Home() {
   return (
     <Layout>
-      <div className="text-yellow-400 shadow-3xl">
-        aaaa
-      </div>
+      <Main />
     </Layout>
   );
 }

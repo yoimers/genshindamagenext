@@ -10,6 +10,7 @@ module.exports = {
         boxshadow: '#a4a08e',
       },
       spacing: {
+        sidebarhight: '440px',
         mainwidth: '880px',
         side: '450px',
         245: '61.25rem',

@@ -1,9 +1,9 @@
 export const stat = {
   name: '名前',
-  a: 'A%',
+  a: '攻撃力%',
   ab: '基礎A',
   ac: '固定A',
-  b: 'B%',
+  b: '防御力%',
   bc: '固定B',
   bb: '基礎B',
   c: '会心率%',

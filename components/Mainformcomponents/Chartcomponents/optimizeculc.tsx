@@ -8,6 +8,7 @@ import { cloneDeep } from 'lodash';
 export default function optimizeculc(id: string, allcase: Status[]): CulcResults {
   const status: Status = allcase[id];
   const results: CulcResults = [];
+  status.el = ((25 / 9) * status.em) / (status.em + 1400) + status.ea / 100;
   for (let t = 0; t <= 160; t += 2) {
     const result = damage_t(status, t);
     results.push(result);
@@ -23,7 +24,7 @@ function damage_t(status: Status, t: number): CulcResult {
     minErrorDelta: 1e-9,
     zeroDelta: 1e-8,
   };
-  const solution = nelderMead(loss, [30, 0, 30, 100], param);
+  const solution = nelderMead(loss, [30, 30, 30, 100], param);
   const h =
     1.5 * (t - solution.x[0] / 1.5 - solution.x[1] / 1.8 - solution.x[2] / 1 - solution.x[3] / 2) +
     status.h;
@@ -39,13 +40,12 @@ function damage_t(status: Status, t: number): CulcResult {
     a: Number(newstatus.a.toFixed(0)),
     b: Number(newstatus.b.toFixed(0)),
     h: Number(newstatus.h.toFixed(0)),
-    c: Number(newstatus.d.toFixed(0)),
-    d: Number(newstatus.c.toFixed(0)),
+    c: Number(newstatus.c.toFixed(0)),
+    d: Number(newstatus.d.toFixed(0)),
     expecteddamage: Number(expected_damage(newstatus).toFixed(0)),
     expected_max_damage: Number(expected_max_damage(newstatus).toFixed(0)),
     maxdamage: Number(max_damage(newstatus).toFixed(0)),
     mindamage: Number(min_damage(newstatus).toFixed(0)),
-    status,
   };
   return result;
 }
@@ -62,7 +62,7 @@ function expecteddamage_t(
   newstatus.h += 1.5 * (t - stat[0] / 1.5 - stat[1] / 1.8 - stat[2] / 1 - stat[3] / 2);
   newstatus.c += stat[2];
   newstatus.d += stat[3];
-  const c = newstatus.c <= 100 ? 0 : (newstatus.c - 100 + 1) ** 2;
+  const c = newstatus.c <= 100 ? 0 : (newstatus.c - 100 + 0) ** 2;
   const n0 = stat[0] >= 0 ? 0 : (stat[0] - 0) ** 2;
   const n1 = stat[1] >= 0 ? 0 : (stat[1] - 0) ** 2;
   const n2 = stat[2] >= 0 ? 0 : (stat[2] - 0) ** 2;
@@ -89,13 +89,12 @@ function expected_max_damage(status: Status): number {
     critical = 1 + (status.d / 100) * (((1 - status.r / 100) * status.c) / 100 + status.r / 100);
   }
   const element = 1 + status.e / 100;
-  const el = ((25 / 9) * status.em) / (status.em + 1400) + status.ea / 100;
 
   let emselect: number;
   if (Math.abs(status.ema - 1) <= 0.05) {
     emselect = 1;
   } else {
-    emselect = 1 + (status.select / 100) * ((1 + el) * status.ema - 1);
+    emselect = 1 + (status.select / 100) * ((1 + status.el) * status.ema - 1);
   }
 
   const TOTAL = ABHP * critical * element * emselect;
@@ -110,13 +109,12 @@ function max_damage(status: Status): number {
     (A * status.ar) / 100 + (B * status.br) / 100 + (HP * (status.hr + status.ahs)) / 100;
   const critical = 1 + status.d / 100;
   const element = 1 + status.e / 100;
-  const el = ((25 / 9) * status.em) / (status.em + 1400) + status.ea / 100;
 
   let emselect: number;
   if (Math.abs(status.ema - 1) <= 0.05) {
     emselect = 1;
   } else {
-    emselect = 1 + (status.select / 100) * ((1 + el) * status.ema - 1);
+    emselect = 1 + (status.select / 100) * ((1 + status.el) * status.ema - 1);
   }
 
   const TOTAL = ABHP * critical * element * emselect;
@@ -131,13 +129,12 @@ function min_damage(status: Status): number {
     (A * status.ar) / 100 + (B * status.br) / 100 + (HP * (status.hr + status.ahs)) / 100;
   const critical = 1;
   const element = 1 + status.e / 100;
-  const el = ((25 / 9) * status.em) / (status.em + 1400) + status.ea / 100;
 
   let emselect: number;
   if (Math.abs(status.ema - 1) <= 0.05) {
     emselect = 1;
   } else {
-    emselect = 1 + (status.select / 100) * ((1 + el) * status.ema - 1);
+    emselect = 1 + (status.select / 100) * ((1 + status.el) * status.ema - 1);
   }
 
   const TOTAL = ABHP * critical * element * emselect;
@@ -157,13 +154,12 @@ function expected_damage(status: Status): number {
     critical = 1 + ((status.d / 100) * status.c) / 100;
   }
   const element = 1 + status.e / 100;
-  const el = ((25 / 9) * status.em) / (status.em + 1400) + status.ea / 100;
 
   let emselect: number;
   if (Math.abs(status.ema - 1) <= 0.05) {
     emselect = 1;
   } else {
-    emselect = 1 + (status.select / 100) * ((1 + el) * status.ema - 1);
+    emselect = 1 + (status.select / 100) * ((1 + status.el) * status.ema - 1);
   }
 
   const TOTAL = ABHP * critical * element * emselect;

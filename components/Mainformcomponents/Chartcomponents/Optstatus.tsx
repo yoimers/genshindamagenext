@@ -1,98 +1,120 @@
-import React from 'react';
-import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line } from 'recharts';
-import { stat } from '../../Statuslist/status';
+import React, { ReactElement } from 'react';
+import {
+  LineChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  Line,
+  ResponsiveContainer,
+} from 'recharts';
+import { st, stat } from '../../Statuslist/status';
+import { Culc } from '../../Statuslist/type';
 
-export default function Optstatus({ culc }) {
+export default function Optstatus({ culc }: { culc: Culc }) {
+  if (culc.culcresult === false) return;
   return (
-    <div className="flex justify-center mt-2 mr-2 border border-gray-800 rounded-lg shadow-sm pt-2 pr-10">
-      <LineChart width={700} height={600} data={culc.culcresult}>
-        <CartesianGrid strokeDasharray="0.2" />
-        <XAxis
-          axisLine={false}
-          dataKey="t"
-          type="number"
-          domain={[0, 160]}
-          tickSize={10}
-          height={80}
-          label={{
-            value: '装備スコア',
-            position: 'Bottom',
-            offset: 0,
-            stroke: '#c3c3c3',
-            size: 18,
+    <div className="flex flex-col  justify-center mt-2 mr-2 rounded-lg shadow-sm">
+      <div>
+        <LineChart
+          data={culc.culcresult}
+          width={750}
+          height={600}
+          margin={{
+            top: 20,
+            right: 0,
+            bottom: 0,
+            left: 40,
           }}
-        />
-        <YAxis
-          axisLine={false}
-          type="number"
-          domain={[0, 260]}
-          ticks={[0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260]}
-          allowDataOverflow={true}
-          interval={0}
-        />
-        <Tooltip
-          contentStyle={{
-            backgroundColor: '#2b2d2f',
-            border: '1px solid #d5d5d5',
-            borderRadius: 6,
-            opacity: 0.95,
-          }}
-          content={<CustomTooltip active payload label />}
-        />
-        <Legend
-          width={120}
-          wrapperStyle={{
-            top: 5,
-            left: 65,
-            backgroundColor: '#2b2d2f',
-            border: '1px solid #d5d5d5',
-            borderRadius: 6,
-            lineHeight: '30px',
-          }}
-          formatter={renderColorfulLegendText}
-        />
-        <Line
-          type="basis"
-          dataKey="a"
-          stroke="rgba(248, 113, 113,1)"
-          dot={false}
-          strokeWidth={3}
-          activeDot={{ r: 8 }}
-          id="a"
-        />
-        <Line
-          type="basis"
-          dataKey="c"
-          stroke="rgba(52, 211, 153, 1)"
-          dot={false}
-          strokeWidth={3}
-          activeDot={{ r: 8 }}
-        />
-        <Line
-          type="basis"
-          dataKey="d"
-          stroke="rgba(244, 114, 182, 1)"
-          dot={false}
-          strokeWidth={3}
-          activeDot={{ r: 8 }}
-        />
-        <Line
-          type="basis"
-          dataKey="b"
-          stroke="rgba(96, 165, 250,1)" //hsl(213,93,67)
-          dot={false}
-          strokeWidth={3}
-          activeDot={{ r: 8 }}
-        />
-        <Line
-          type="basis"
-          dataKey="h"
-          stroke="rgba(251, 191, 36,1)"
-          dot={false}
-          strokeWidth={3}
-          activeDot={{ r: 8 }}
-        />
-      </LineChart>
+        >
+          <CartesianGrid strokeDasharray="0.2" />
+          <XAxis
+            axisLine={false}
+            dataKey="t"
+            type="number"
+            domain={[0, 160]}
+            tickSize={10}
+            height={60}
+            label={{
+              value: '装備スコア',
+              position: 'insideBottom',
+              offset: 15,
+              stroke: '#c3c3c3',
+              size: 18,
+            }}
+          />
+          <YAxis
+            axisLine={false}
+            type="number"
+            domain={[(dataMin) => -10, (dataMax) => dataMax * 1.05]}
+            ticks={Yaxis(culc)}
+            allowDataOverflow={true}
+            interval={0}
+            label={{
+              value: 'ステータス',
+              angle: -90,
+              position: 'insideLeft',
+              offset: -10,
+              stroke: '#c3c3c3',
+              size: 18,
+              dy: 50,
+            }}
+          />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: '#2b2d2f',
+              border: '1px solid #d5d5d5',
+              borderRadius: 6,
+              opacity: 0.95,
+            }}
+            content={<CustomTooltip active payload label />}
+          />
+          <Legend verticalAlign="top" height={30} formatter={renderColorfulLegendText} />
+          <Line
+            type="basis"
+            dataKey="a"
+            stroke="hsla(0, 91%, 71%, 1)"
+            dot={false}
+            strokeWidth={3}
+            activeDot={{ r: 8 }}
+            id="a"
+          />
+          <Line
+            type="basis"
+            dataKey="c"
+            stroke="rgba(52, 211, 153, 1)"
+            dot={false}
+            strokeWidth={3}
+            activeDot={{ r: 8 }}
+          />
+          <Line
+            type="basis"
+            dataKey="d"
+            stroke="rgba(244, 114, 182, 1)"
+            dot={false}
+            strokeWidth={3}
+            activeDot={{ r: 8 }}
+          />
+          <Line
+            type="basis"
+            dataKey="b"
+            stroke="hsla(213, 94%, 68%, 1)" //hsl(213,93,67)
+            dot={false}
+            strokeWidth={3}
+            activeDot={{ r: 8 }}
+          />
+          <Line
+            type="basis"
+            dataKey="h"
+            stroke="hsla(43, 96%, 56%, 1)"
+            dot={false}
+            strokeWidth={3}
+            activeDot={{ r: 8 }}
+          />
+        </LineChart>
+      </div>
+      <OptTitle culc={culc} />
     </div>
   );
 }
@@ -117,7 +139,10 @@ const CustomTooltip = ({
 }) => {
   if (active && payload && payload.length) {
     return (
-      <div style={{ background: 'rgba(33, 35, 37, 0)' }} className=" border rounded-md p-2 text-lg">
+      <div
+        style={{ background: 'rgba(13, 15, 17, 0.6)' }}
+        className=" border rounded-md p-2 text-lg"
+      >
         <p className="text-textcolor">{`装備スコア:${label}`}</p>
         <p
           style={{ color: payload[0].color }}
@@ -145,3 +170,65 @@ const CustomTooltip = ({
 
   return null;
 };
+
+function OptTitle({ culc }: { culc: Culc }): ReactElement {
+  const color = {
+    a: 'hsla(0, 80%, 80%, 0.6)',
+    b: 'hsla(213, 80%, 80%, 0.6)',
+    h: 'hsla(43, 80%, 80%, 0.6)',
+    c: 'hsla(156, 80%, 80%, 0.6)',
+    d: 'hsla(323, 80%, 80%, 0.6)',
+    text: 'hsla(0, 0%, 76%, 0.6)',
+  };
+  return (
+    <div className="text-center text-textcolor my-2">
+      <p>初期ステータス</p>
+      <p>
+        <span style={{ color: color.a }}>基礎攻撃力: {culc.status.ab} </span>
+        <span style={{ color: color.a }}>固定攻撃力: {culc.status.ac} </span>
+        <span style={{ color: color.b }}>基礎防御力: {culc.status.bb} </span>
+        <span style={{ color: color.b }}>固定防御力: {culc.status.bc} </span>
+        <span style={{ color: color.h }}>基礎HP: {culc.status.hb} </span>
+        <span style={{ color: color.h }}>固定HP: {culc.status.hc} </span>
+      </p>
+      <p>
+        <span style={{ color: color.a }}>攻撃力%: {culc.status.a}% </span>
+        <span style={{ color: color.c }}>会心率%: {culc.status.c}% </span>
+        <span style={{ color: color.d }}>会心ダメ%: {culc.status.d}% </span>
+        <span style={{ color: color.b }}>防御力%: {culc.status.b}% </span>
+        <span style={{ color: color.h }}>HP%: {culc.status.h}% </span>
+      </p>
+      <p>
+        <span style={{ color: color.text }}>元素ダメ%: {culc.status.e}% </span>
+        <span style={{ color: color.text }}>
+          {stat.el}: {culc.status.el * 100 + 100}%{' '}
+        </span>
+        <span style={{ color: color.text }}>
+          {stat.ea}: {culc.status.ea}%{' '}
+        </span>
+        <span style={{ color: color.text }}>
+          {stat.ema}: {culc.status.ema * 100}%{' '}
+        </span>
+        <span style={{ color: color.text }}>
+          {stat.select}: {culc.status.select}%{' '}
+        </span>
+      </p>
+      <span style={{ color: color.text }}>
+        A-B-HP weight: {culc.status.ar}:{culc.status.br}:{culc.status.hr}
+      </span>
+    </div>
+  );
+}
+
+function Yaxis(culc: Culc) {
+  const Yaxis = [];
+  if (culc.culcresult === false) return [];
+  const maxobj = culc.culcresult.slice(-1)[0];
+  const max = maxobj.d < maxobj.a ? maxobj.a : maxobj.d;
+  let i = 0;
+  for (i = 0; 20 * i < max; i++) {
+    Yaxis.push(20 * i);
+  }
+  Yaxis.push(20 * i);
+  return Yaxis;
+}

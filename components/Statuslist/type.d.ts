@@ -179,11 +179,13 @@ interface InputForm {
   childid: string;
 }
 export type StatButtons = {
-  [id: string]: {
-    culcname: string;
-    culctype: 'opt' | 'compare';
-    culcresult: false | CulcResults; //false
-  };
+  [id: string]: Culc;
+};
+export type Culc = {
+  culcname: string;
+  culctype: 'opt' | 'compare';
+  culcresult: false | CulcResults; //false
+  status?: Status;
 };
 export type CulcResults = CulcResult[];
 
@@ -198,7 +200,6 @@ export type CulcResult = {
   expected_max_damage: number;
   maxdamage: number;
   mindamage: number;
-  status: Status;
 };
 
 export type Chart = {

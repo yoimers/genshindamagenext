@@ -46,18 +46,18 @@ export default function SideButton({ text, img, type }: ButtonData) {
   let m: string = 'mt-1';
   switch (type) {
     case 'char':
-      c = 'border-red-400';
+      c = 'border-red-700';
       m = '';
       break;
     case 'art':
       c = 'border-yellow-500';
       break;
     case 'wep':
-      c = 'border-blue-300';
+      c = 'border-blue-600';
       break;
     case 'culc':
-      c = 'border-green-400';
-      m = 'mt-3';
+      c = 'border-green-700';
+      m = 'mt-4';
       break;
   }
   return (

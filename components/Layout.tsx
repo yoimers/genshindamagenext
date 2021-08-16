@@ -12,11 +12,11 @@ export default function Layout({ children }) {
         <title>GENSHIN</title>
         <link rel="icon" href="/myfavicon.ico" />
       </Head>
-      <div className="m-auto min-h-screen font-display select-none">
+      <div className="m-auto min-h-screen font-display select-none pb-10">
         <div className="mx-auto w-245 pt-4">
           <Header />
-          <Main />
-          <footer className="mt-2 bg-transparent h-32 border border-gray-800 rounded-lg shadow-sm">footer</footer>
+          {children}
+          {/* <footer className="mt-2 bg-transparent h-32 border border-gray-800 rounded-lg shadow-sm"></footer> */}
         </div>
       </div>
     </>

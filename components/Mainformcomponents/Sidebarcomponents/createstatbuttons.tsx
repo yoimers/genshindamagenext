@@ -9,7 +9,12 @@ export default function createstatbuttons(
   const buttons: StatButtons = {};
   allcase.forEach((value, index) => {
     const culcname = value.name.toString();
-    buttons[index.toString()] = { culcname, culcresult: false, culctype: 'opt' };
+    buttons[index.toString()] = {
+      culcname,
+      culcresult: false,
+      culctype: 'opt',
+      status: value,
+    };
   });
   buttons['expected_compare'] = {
     culcname: '期待値比較',
@@ -17,7 +22,7 @@ export default function createstatbuttons(
     culctype: 'compare',
   };
   buttons['max_compare'] = {
-    culcname: '最大ダメ比較',
+    culcname: '最大比較',
     culcresult: false,
     culctype: 'compare',
   };
@@ -69,6 +74,7 @@ function alloptimizetion(
             culcname: allcase[id].name,
             culcresult: results,
             culctype: 'opt',
+            status: allcase[id],
           },
           expected_compare: {
             culcname: '期待値比較',
@@ -76,7 +82,7 @@ function alloptimizetion(
             culctype: 'compare',
           },
           max_compare: {
-            culcname: '最大ダメ比較',
+            culcname: '最大比較',
             culcresult: max,
             culctype: 'compare',
           },
