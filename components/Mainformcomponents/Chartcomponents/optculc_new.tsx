@@ -5,7 +5,7 @@ export default function optimizeculc_new(id: string, allcase: Status[]): CulcRes
   const status: Status = allcase[id];
   const results: CulcResults = [];
   status.el = ((25 / 9) * status.em) / (status.em + 1400) + status.ea / 100;
-  for (let t = 0; t <= 160; t += 4) {
+  for (let t = 0; t <= 160; t += 1) {
     const result = opt_t(status, t);
     results.push(result);
   }
@@ -14,12 +14,12 @@ export default function optimizeculc_new(id: string, allcase: Status[]): CulcRes
 }
 
 function opt_t(status: Status, t: number): CulcResult {
-  const epps = 0.01;
+  const epps = 1;
   let epp = 1;
   let da = 100;
   let db = 50;
   let di: OptSt = { a: 0, b: 0, h: 0, c: 0, d: 0 };
-  let x: OptSt = { a: 50, b: 0, h: 0, c: 30, d: 50 };
+  let x: OptSt = { a: 0, b: 0, h: 0, c: 0, d: 0 };
   for (let i = 0; i < 1000; i++) {
     //Math.abs((db - da) / da) > 1e-4
     epp = epps;
@@ -65,26 +65,42 @@ function diff(status: Status, x: OptSt): OptSt {
   newstatus.c += x.c;
   newstatus.d += x.d;
   diff.a =
-    (expected_max_damage({ ...newstatus, a: newstatus.a + h }) -
-      expected_max_damage({ ...newstatus, a: newstatus.a - h })) /
+    (expected_max_damage_opt({ ...newstatus, a: newstatus.a + h }) -
+      expected_max_damage_opt({ ...newstatus, a: newstatus.a - h })) /
     (2 * h);
   diff.b =
-    (expected_max_damage({ ...newstatus, b: newstatus.b + h }) -
-      expected_max_damage({ ...newstatus, b: newstatus.b - h })) /
+    (expected_max_damage_opt({ ...newstatus, b: newstatus.b + h }) -
+      expected_max_damage_opt({ ...newstatus, b: newstatus.b - h })) /
     (2 * h);
   diff.h =
-    (expected_max_damage({ ...newstatus, h: newstatus.h + h }) -
-      expected_max_damage({ ...newstatus, h: newstatus.h - h })) /
+    (expected_max_damage_opt({ ...newstatus, h: newstatus.h + h }) -
+      expected_max_damage_opt({ ...newstatus, h: newstatus.h - h })) /
     (2 * h);
   diff.c =
-    (expected_max_damage({ ...newstatus, c: newstatus.c + h }) -
-      expected_max_damage({ ...newstatus, c: newstatus.c - h })) /
+    (expected_max_damage_opt({ ...newstatus, c: newstatus.c + h }) -
+      expected_max_damage_opt({ ...newstatus, c: newstatus.c - h })) /
     (2 * h);
   diff.d =
-    (expected_max_damage({ ...newstatus, d: newstatus.d + h }) -
-      expected_max_damage({ ...newstatus, d: newstatus.d - h })) /
+    (expected_max_damage_opt({ ...newstatus, d: newstatus.d + h }) -
+      expected_max_damage_opt({ ...newstatus, d: newstatus.d - h })) /
     (2 * h);
   return diff;
+}
+
+function expected_max_damage_opt(status: Status): number {
+  const A = status.ab * (1 + status.a / 100) + status.ac;
+  const B = status.bb * (1 + status.b / 100) + status.bc;
+  const HP = status.hb * (1 + status.h / 100) + status.hc;
+  const ABHP =
+    (A * status.ar) / 100 + (B * status.br) / 100 + (HP * (status.hr + status.ahs)) / 100;
+  let critical: number;
+  if (status.c >= 100) {
+    critical = 1 + status.d / 100;
+  } else {
+    critical = 1 + (status.d / 100) * (((1 - status.r / 100) * status.c) / 100 + status.r / 100);
+  }
+
+  return ABHP * critical;
 }
 
 function expected_max_damage(status: Status): number {
@@ -198,7 +214,7 @@ function cons(status: Status, x: OptSt, t: number): OptSt {
     }
     if (y.d < 0) y.d = 0;
   };
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 50; i++) {
     tproj();
     nproj();
   }

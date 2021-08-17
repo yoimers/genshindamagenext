@@ -182,39 +182,41 @@ function OptTitle({ culc }: { culc: Culc }): ReactElement {
   };
   return (
     <div className="text-center text-textcolor my-2">
+      <p>{culc.culcname}</p>
       <p>初期ステータス</p>
       <p>
-        <span style={{ color: color.a }}>基礎攻撃力: {culc.status.ab} </span>
-        <span style={{ color: color.a }}>固定攻撃力: {culc.status.ac} </span>
-        <span style={{ color: color.b }}>基礎防御力: {culc.status.bb} </span>
-        <span style={{ color: color.b }}>固定防御力: {culc.status.bc} </span>
-        <span style={{ color: color.h }}>基礎HP: {culc.status.hb} </span>
-        <span style={{ color: color.h }}>固定HP: {culc.status.hc} </span>
+        <span style={{ color: color.a }}>基礎攻撃力: {Number(culc.status.ab.toFixed(1))} </span>
+        <span style={{ color: color.a }}>固定攻撃力: {Number(culc.status.ac.toFixed(1))} </span>
+        <span style={{ color: color.b }}>基礎防御力: {Number(culc.status.bb.toFixed(1))} </span>
+        <span style={{ color: color.b }}>固定防御力: {Number(culc.status.bc.toFixed(1))} </span>
+        <span style={{ color: color.h }}>基礎HP: {Number(culc.status.hb.toFixed(1))} </span>
+        <span style={{ color: color.h }}>固定HP: {Number(culc.status.hc.toFixed(1))} </span>
       </p>
       <p>
-        <span style={{ color: color.a }}>攻撃力%: {culc.status.a}% </span>
-        <span style={{ color: color.c }}>会心率%: {culc.status.c}% </span>
-        <span style={{ color: color.d }}>会心ダメ%: {culc.status.d}% </span>
-        <span style={{ color: color.b }}>防御力%: {culc.status.b}% </span>
-        <span style={{ color: color.h }}>HP%: {culc.status.h}% </span>
+        <span style={{ color: color.a }}>攻撃力%: {Number(culc.status.a.toFixed(1))}% </span>
+        <span style={{ color: color.c }}>会心率%: {Number(culc.status.c.toFixed(1))}% </span>
+        <span style={{ color: color.d }}>会心ダメ%: {Number(culc.status.d.toFixed(1))}% </span>
+        <span style={{ color: color.b }}>防御力%: {Number(culc.status.b.toFixed(1))}% </span>
+        <span style={{ color: color.h }}>HP%: {Number(culc.status.h.toFixed(1))}% </span>
       </p>
       <p>
-        <span style={{ color: color.text }}>元素ダメ%: {culc.status.e}% </span>
+        <span style={{ color: color.text }}>元素ダメ%: {Number(culc.status.e.toFixed(1))}% </span>
         <span style={{ color: color.text }}>
-          {stat.el}: {culc.status.el * 100 + 100}%{' '}
+          {stat.el}: {Number(culc.status.el.toFixed(3)) * 100 + 100}%{' '}
         </span>
         <span style={{ color: color.text }}>
-          {stat.ea}: {culc.status.ea}%{' '}
+          {stat.ea}: {Number(culc.status.ea.toFixed(1))}%{' '}
         </span>
         <span style={{ color: color.text }}>
-          {stat.ema}: {culc.status.ema * 100}%{' '}
+          {stat.ema}: {Number(culc.status.ema.toFixed(3)) * 100}%{' '}
         </span>
         <span style={{ color: color.text }}>
-          {stat.select}: {culc.status.select}%{' '}
+          {stat.select}: {Number(culc.status.select.toFixed(1))}%{' '}
         </span>
       </p>
       <span style={{ color: color.text }}>
-        A-B-HP weight: {culc.status.ar}:{culc.status.br}:{culc.status.hr}
+        A-B-HP weight {Number(culc.status.ar.toFixed(1))} : {Number(culc.status.br.toFixed(1))} :{' '}
+        {Number(culc.status.hr.toFixed(1))}
       </span>
     </div>
   );
