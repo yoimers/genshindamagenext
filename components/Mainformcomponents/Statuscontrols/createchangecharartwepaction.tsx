@@ -9,9 +9,13 @@ export default function createchangecharartwepaction(
   if (action.action === 'createchangecharartwepaction') {
     if (action.add) {
       let value = prev[action.id.toString()][action.childid.toString()].value;
-      value = Number(value) + action.add >= 0 ? Number(value) + Number(action.add) : 0;
+      value =
+        Number(value) + action.add >= 0
+          ? Math.round(1000 * (Number(value) + Number(action.add))) / 1000
+          : 0;
       const str = value.toString().split('.');
       if (str.length === 2) {
+        console.log(str[1]);
         value =
           str[0] + '.' + str[1].slice(0, 1) + (str[1].length !== 1 ? str[1].slice(-1)[0] : '');
       }
