@@ -9,17 +9,17 @@ export default function optimizeculc(id: string, allcase: Status[]): CulcResults
   const status: Status = allcase[id];
   const results: CulcResults = [];
   status.el = ((25 / 9) * status.em) / (status.em + 1400) + status.ea / 100;
-  let prevresult = { a: 1, b: 1, h: 1, c: 1, d: 1 };
+  let prevresult = { a: 1, b: 1, c: 1, d: 1 };
   for (let t = 0; t <= 160; t += 2) {
     const result = damage_t(status, t, prevresult);
-    prevresult = { a: result.a, b: result.b, h: result.h, c: result.c, d: result.d };
+    prevresult = { a: result.a, b: result.b, c: result.c, d: result.d };
     results.push(result);
   }
   console.log(status);
   return results;
 }
 
-function damage_t(status: Status, t: number, { a, b, h, c, d }): CulcResult {
+function damage_t(status: Status, t: number, { a, b, c, d }): CulcResult {
   const loss = (stat: [number, number, number, number]) => expecteddamage_t(status, stat, t);
 
   const param = {
@@ -79,7 +79,7 @@ function expecteddamage_t(
   const score = status.a / 1.5 + status.b / 1.8 + status.h / 1.5 + status.c + status.d / 2;
   // const lam2 = 4 + t / 40;
   //125.9 33.8 76.2
-  const lam2 = 500 + (score + t) / 1;
+  const lam2 = 100 + (score + t) / 2;
   return -1 * expected_max_damage_opt(newstatus) + lam2 * (c + n0 + n1 + n2 + n3 + n4);
 }
 

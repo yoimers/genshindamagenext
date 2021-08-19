@@ -148,7 +148,7 @@ function onClick(
 
 const renderColorfulLegendText = (value: string, entry: any, statbuttons: StatButtons) => {
   const { color } = entry;
-  return <span style={{ color }}>{statbuttons[value].culcname || 'NoName'}</span>;
+  return <span style={{ color }}>{statbuttons[value]?.culcname || 'NoName'}</span>;
 };
 
 const CustomTooltip = ({
