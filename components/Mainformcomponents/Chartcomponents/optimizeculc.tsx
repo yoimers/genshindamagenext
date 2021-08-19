@@ -25,7 +25,7 @@ function damage_t(status: Status, t: number, { a, b, c, d }): CulcResult {
   const param = {
     maxIterations: 10000,
     minErrorDelta: 1e-9,
-    zeroDelta: t === 0 ? 1e-2 : 1e-6,
+    zeroDelta: t === 0 ? 1e-2 : 1e-5,
   };
   const solution = nelderMead(loss, [a, b, c, d], param);
   const h1 =
@@ -79,7 +79,7 @@ function expecteddamage_t(
   const score = status.a / 1.5 + status.b / 1.8 + status.h / 1.5 + status.c + status.d / 2;
   // const lam2 = 4 + t / 40;
   //125.9 33.8 76.2
-  const lam2 = 100 + (score + t) / 2;
+  const lam2 = 100 + (score + t) / 50;
   return -1 * expected_max_damage_opt(newstatus) + lam2 * (c + n0 + n1 + n2 + n3 + n4);
 }
 
