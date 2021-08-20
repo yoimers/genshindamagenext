@@ -66,7 +66,7 @@ export default function Sidebar() {
                 alt="Picture of the author"
               />
             </div>
-            <p className="block h-full w-full text-center absolute top-1/3 left-0 self-center text-3xl text-textcolor font-black text-shadow">
+            <p className="block h-full w-full text-center absolute top-1/4 left-0 self-center text-3xl text-textcolor font-black text-shadow">
               ドラッグ&ドロップだよ！
             </p>
           </div>
