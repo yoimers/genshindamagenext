@@ -35,5 +35,30 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.text-shadow': {
+          textShadow: '1px 1px 2px hsla(0, 0%, 40%, 1)',
+        },
+        '.text-shadow-md': {
+          textShadow: '3px 3px 3px white',
+        },
+        '.text-shadow-lg': {
+          textShadow: '5px 5px 3px white',
+        },
+        '.text-shadow-xl': {
+          textShadow: '7px 7px 3px white',
+        },
+        '.text-shadow-2xl': {
+          textShadow: '10px 10px 3px white',
+        },
+        '.text-shadow-none': {
+          textShadow: 'none',
+        },
+      };
+
+      addUtilities(newUtilities);
+    },
+  ],
 };

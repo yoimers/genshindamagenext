@@ -87,7 +87,7 @@ function expecteddamage_t(
   // const lam2 = 4 + t / 40;
   //125.9 33.8 76.2
   const lam2 = 5 + (score + t) / 40;
-  const lam1 = 5e-4; //4~5
+  const lam1 = 9e-4; //4~5
   return (
     -1 * expected_max_damage_opt(newstatus) + lam2 * (c + n0 + n1 + n2 + n3 + n4) + diff * lam1
   );

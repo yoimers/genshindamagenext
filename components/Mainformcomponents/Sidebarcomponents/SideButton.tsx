@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Image from 'next/image';
 import useDragdodoco from '../Formcomponents/useComponents/useDragdodoco';
 import { AllFormContext, StateButtonContext, StructureContext } from '../Main';
@@ -11,6 +11,7 @@ interface ButtonData {
   text: string;
   img: string;
   type: Equip | 'culc';
+  setAlert: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export interface BoxProps {
   name: string;
@@ -20,13 +21,16 @@ interface DropResult {
   name: string;
 }
 
-export default function SideButton({ text, img, type }: ButtonData) {
+export default function SideButton({ text, img, type, setAlert }: ButtonData) {
   const { types, dispatch } = useContext(StructureContext);
   const { status, statusdispatch } = useContext(AllFormContext);
   const { statbuttons, setButton } = useContext(StateButtonContext);
-
   const { isDragging, drag } = useDragdodoco(type, '0', true, dispatch, statusdispatch);
+
   const onClick = () => {
+    if (['char', 'wep', 'art'].includes(type) && types.length !== 0) {
+      setAlert(true);
+    }
     if (type === 'char' && types.length === 0) {
       dispatch({ action: 'createNode', id: '0', type: 'char' });
     }

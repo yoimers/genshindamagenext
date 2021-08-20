@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Equip } from '../../Statuslist/type';
 import SideButton from './SideButton';
+import Image from 'next/image';
 
 interface ButtonData {
   text: string;
@@ -31,11 +32,46 @@ const Buttondata: ButtonData[] = [
   },
 ];
 export default function Sidebar() {
+  const [alert, setAlert] = useState(false);
+  useEffect(() => {
+    if (alert) {
+      setTimeout(() => {
+        setAlert(false);
+      }, 1000);
+    }
+  }, [alert]);
   return (
-    <aside className="w-52 h-sidebarhight rounded-lg shadow-sm sticky top-2 p-1">
-      {Buttondata.map((data) => {
-        return <SideButton key={data.text} text={data.text} img={data.img} type={data.type} />;
-      })}
-    </aside>
+    <>
+      <aside className="w-52 h-sidebarhight rounded-lg shadow-sm sticky top-2 p-1">
+        {Buttondata.map((data) => {
+          return (
+            <SideButton
+              key={data.text}
+              text={data.text}
+              img={data.img}
+              type={data.type}
+              setAlert={setAlert}
+            />
+          );
+        })}
+      </aside>
+      {alert && (
+        <div className="fixed bottom-2 right-2 rounded-md bg-gray-900 shadow-2xl">
+          <div className="relative w-72">
+            <div className="flex flex-row opacity-20">
+              <Image
+                src={'/images/klee6.png'}
+                width={180}
+                height={180}
+                alt="Picture of the author"
+              />
+            </div>
+            <p className="block h-full w-full text-center absolute top-1/3 left-0 self-center text-3xl text-textcolor font-black text-shadow">
+              ドラッグ&ドロップだよ！
+            </p>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
