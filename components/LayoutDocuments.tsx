@@ -7,14 +7,14 @@ export default function LayoutDocuments({ children, allPostsData }) {
   return (
     <Layout>
       <div className="flex flex-nowrap bg-transparent min-h-full">
-        <main className="flex flex-col flex-grow  mr-2 border border-gray-800 rounded-lg shadow-sm p-2 w-mainwidth text-textcolor">
+        <main className="flex flex-col flex-grow  mr-2 border border-gray-800 rounded-lg shadow-sm p-4 w-mainwidth text-textcolor document">
           {children}
         </main>
         <aside className="w-52 h-sidebarhight rounded-lg shadow-sm sticky top-2 p-2 text-textcolor">
           <ul>
             {allPostsData.map(({ id, date, title }) => (
               <li key={id}>
-                <Link href={`/documents/${id}`}>
+                <Link href={`/documents/${id === 'introduction' ? '/' : id}`}>
                   <a>{title}</a>
                 </Link>
                 <br />

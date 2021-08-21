@@ -2,22 +2,25 @@ import Link from 'next/link';
 import React from 'react';
 import Layout from '../../components/Layout';
 import LayoutDocuments from '../../components/LayoutDocuments';
-import { getSortedPostsData } from '../../lib/posts';
+import { getPostData, getSortedPostsData } from '../../lib/posts';
 
-export default function Document({ allPostsData }) {
+export default function Document({ allPostsData, postData }) {
   return (
     <LayoutDocuments allPostsData={allPostsData}>
-      aaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-      aaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      {postData.title}
+      <br />
+      <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
     </LayoutDocuments>
   );
 }
 
 export async function getStaticProps() {
+  const postData = await getPostData('introduction');
   const allPostsData = getSortedPostsData();
   return {
     props: {
       allPostsData,
+      postData,
     },
   };
 }
