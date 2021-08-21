@@ -11,13 +11,15 @@ export default function LayoutDocuments({ children, allPostsData }) {
           {children}
         </main>
         <aside className="w-52 h-sidebarhight rounded-lg shadow-sm sticky top-2 p-2 text-textcolor">
-          <ul>
+          <ul className="">
             {allPostsData.map(({ id, date, title }) => (
-              <li key={id}>
+              <li
+                key={id}
+                className="pl-2 block h-10 leading-10 underline text-lg text-textcolor hover:opacity-40"
+              >
                 <Link href={`/documents/${id === 'introduction' ? '/' : id}`}>
-                  <a>{title}</a>
+                  <a className="block h-full w-full">{title}</a>
                 </Link>
-                <br />
               </li>
             ))}
           </ul>
