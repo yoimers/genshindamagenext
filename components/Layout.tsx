@@ -4,12 +4,14 @@ import Header from './Headercomponents/Header';
 import Head from 'next/head';
 import Sidebar from './Mainformcomponents/Sidebarcomponents/Sidebar';
 import Main from './Mainformcomponents/Main';
+import React from 'react';
+import Seo from './Seo';
 
 export default function Layout({ children }) {
   return (
     <>
       <Head>
-        <title>GENSHIN</title>
+        <Seo />
         <link rel="icon" href="/myfavicon.ico" />
       </Head>
       <div className="m-auto min-h-screen font-display select-none pb-10">
