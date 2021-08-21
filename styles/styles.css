@@ -26,14 +26,17 @@ html {
   height: 100%;
 }
 
+.document {
+  line-height: 25px;
+}
 .document h2 {
   background: linear-gradient(transparent 60%, #805151 50%);
-  font-size: 22px;
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: 800;
 }
 
 .document h3 {
-  background: linear-gradient(transparent 60%, #442f2f 50%);
+  background: linear-gradient(transparent 60%, #4b2444 50%);
   font-size: 18px;
-  font-weight: 300;
+  font-weight: 600;
 }

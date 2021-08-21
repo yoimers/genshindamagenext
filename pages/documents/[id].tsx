@@ -6,7 +6,7 @@ import { getAllPostIds, getPostData, getSortedPostsData } from '../../lib/posts'
 export default function document({ postData, allPostsData }) {
   return (
     <LayoutDocuments allPostsData={allPostsData}>
-      {postData.title}
+      <p className="text-titlecolor text-3xl mb-2">{postData.title}</p>
       <br />
       <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
     </LayoutDocuments>
