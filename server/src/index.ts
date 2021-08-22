@@ -9,3 +9,5 @@ const server = new ApolloServer({
 server.listen().then(({ url }: { url: String }) => {
   console.log(`🚀 Server ready at ${url}`);
 });
+
+export {};
