@@ -16,8 +16,8 @@ const navitems: NavItem[] = [
     text: 'Documents',
   },
   {
-    href: '/contact',
-    text: 'Contact',
+    href: '/boards',
+    text: 'Boards',
   },
 ];
 export default function Navigation(): ReactElement {
