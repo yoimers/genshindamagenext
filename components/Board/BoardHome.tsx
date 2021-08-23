@@ -41,6 +41,7 @@ export default function BoardHome({ refetch }: Input) {
         content: body.content,
       },
     });
+    console.log(newboard);
     if (newboard.success) {
       setBody({ title: '', content: '' });
       refetch();

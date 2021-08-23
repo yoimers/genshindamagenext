@@ -8,8 +8,9 @@ import 'tailwindcss/tailwind.css';
 import '../styles//styles.css';
 
 const cache = new InMemoryCache();
+
 const link = new HttpLink({
-  uri: 'https://genshindamagenext.vercel.app/api/graphql',
+  uri: '/api/graphql',
 });
 
 const client = new ApolloClient({
