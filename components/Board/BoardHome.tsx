@@ -26,7 +26,6 @@ type Input = {
 export default function BoardHome({ refetch }: Input) {
   const [body, setBody] = useState({ title: '', content: '' } as State);
   const [createBoard, { data, loading, error }] = useMutation(CREATE_BOARD);
-
   const onChange = (e) => {
     setBody((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -47,6 +46,21 @@ export default function BoardHome({ refetch }: Input) {
       refetch();
     }
   };
+
+  const submitData = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    try {
+      const body = { title: 'API', content: 'api' };
+      const x = await fetch('/api/post', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      console.log(x, 'aa');
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div>
       <a href="/api/graphql">GraphQL Playground</a>
@@ -55,6 +69,9 @@ export default function BoardHome({ refetch }: Input) {
       <form onSubmit={onClick}>
         <input type="text" onChange={onChange} value={body.title} name="title" />
         <input type="text" onChange={onChange} value={body.content} name="content" />
+        <input type="submit" />
+      </form>
+      <form onSubmit={submitData}>
         <input type="submit" />
       </form>
     </div>

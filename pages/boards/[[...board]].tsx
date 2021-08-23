@@ -32,9 +32,10 @@ export default function Contact() {
   const router = useRouter();
   let board = router.query.board;
   board = board && board[0];
+
   return (
     <Layout>
-      <div className="flex flex-nowrap bg-transparent min-h-full">
+      <div className=" flex flex-nowrap bg-transparent min-h-full">
         <main className="flex flex-col flex-grow  mr-2 border border-gray-800 rounded-lg shadow-sm p-1 w-mainwidth text-textcolor">
           {board ? <BoardMain boardId={board} /> : <BoardHome refetch={refetch} />}
         </main>

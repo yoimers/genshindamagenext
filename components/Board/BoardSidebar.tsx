@@ -12,7 +12,11 @@ type Input = {
 };
 export default function ContactSidebar({ data, loading, error, fetchMore }: Input) {
   if (loading) return <p>Loading</p>;
-  if (error) return <p>ERROR</p>;
+  if (error) {
+    console.log(error);
+    return <p>ERROR</p>;
+  }
+
   return (
     <aside className="w-52 h-sidebarhight rounded-lg shadow-sm sticky top-2 p-1 text-textcolor">
       <ul>
