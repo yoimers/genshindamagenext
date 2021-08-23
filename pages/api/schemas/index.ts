@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server');
+import { gql } from 'apollo-server-micro';
 
 export const typeDefs = gql`
   type Query {

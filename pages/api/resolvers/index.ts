@@ -1,4 +1,4 @@
-import { Board, PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export const resolvers = {
@@ -14,7 +14,7 @@ export const resolvers = {
           id: true,
         },
       });
-      let boards: Board[];
+      let boards;
       if (!after) {
         boards = await prisma.board.findMany({
           take,
