@@ -18,6 +18,7 @@ export default async function handler(req, res) {
     res.end();
     return false;
   }
+  console.log('aaa');
   await startServer;
   await apolloServer.createHandler({
     path: '/api/graphql',

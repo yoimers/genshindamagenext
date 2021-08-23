@@ -26,7 +26,9 @@ type Input = {
 export default function BoardHome({ refetch }: Input) {
   const [body, setBody] = useState({ title: '', content: '' } as State);
   const [createBoard, { data, loading, error }] = useMutation(CREATE_BOARD);
-
+  if (error) {
+    console.log(error);
+  }
   const onChange = (e) => {
     setBody((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
