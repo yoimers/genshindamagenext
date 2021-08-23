@@ -4,43 +4,47 @@ const prisma = new PrismaClient();
 export const resolvers = {
   Query: {
     boards: async (_: any, { take = 10, after }: { take: number; after: number }) => {
-      const finalboard = await prisma.board.findMany({
-        skip: 0,
-        take: 1,
-        orderBy: {
-          id: 'asc',
-        },
-        select: {
-          id: true,
-        },
-      });
-      let boards;
-      if (!after) {
-        boards = await prisma.board.findMany({
-          take,
+      try {
+        const finalboard = await prisma.board.findMany({
+          skip: 0,
+          take: 1,
           orderBy: {
-            id: 'desc',
+            id: 'asc',
+          },
+          select: {
+            id: true,
           },
         });
-      } else {
-        boards = await prisma.board.findMany({
-          take,
-          skip: 1,
-          cursor: {
-            id: after,
-          },
-          orderBy: {
-            id: 'desc',
-          },
-        });
+        let boards;
+        if (!after) {
+          boards = await prisma.board.findMany({
+            take,
+            orderBy: {
+              id: 'desc',
+            },
+          });
+        } else {
+          boards = await prisma.board.findMany({
+            take,
+            skip: 1,
+            cursor: {
+              id: after,
+            },
+            orderBy: {
+              id: 'desc',
+            },
+          });
+        }
+        const cursor = boards[boards.length - 1].id;
+        const hasMore = boards[boards.length - 1].id === finalboard[0].id ? false : true;
+        return {
+          cursor,
+          hasMore,
+          boards,
+        };
+      } catch (err) {
+        console.error(err);
       }
-      const cursor = boards[boards.length - 1].id;
-      const hasMore = boards[boards.length - 1].id === finalboard[0].id ? false : true;
-      return {
-        cursor,
-        hasMore,
-        boards,
-      };
     },
     board: async (_: any, { id }: { id: string }) => {
       const board = await prisma.board.findFirst({
