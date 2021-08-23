@@ -32,6 +32,7 @@ export default function Contact() {
   const router = useRouter();
   let board = router.query.board;
   board = board && board[0];
+
   return (
     <Layout>
       <div className=" flex flex-nowrap bg-transparent min-h-full">
