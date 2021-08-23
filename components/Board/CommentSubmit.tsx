@@ -48,6 +48,7 @@ export default function CommentSubmit({
     e.preventDefault();
     setBody({ username: '', content: '' });
     if (!body.content) return;
+
     await createComment({
       variables: {
         username: body.username || 'ヒルチャール',

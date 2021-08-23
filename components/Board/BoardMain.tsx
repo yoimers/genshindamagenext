@@ -29,10 +29,10 @@ export default function ContactMain({ boardId }: Input) {
   if (error) return <p>ERROR</p>;
   return (
     <div className="m-5 ">
-      <p className="rounded-lg bg-gray-700 shadow-xl focus:ring-0 ring-blue-100 ring-offset-2 ring-offset-bgc leading-8 text-2xl p-4">
+      <p className="rounded-lg bg-gray-700 shadow-xl focus:ring-0 ring-blue-100 ring-offset-2 ring-offset-bgc leading-8 text-2xl p-4 whitespace-pre-wrap">
         {data.board.title}
       </p>
-      <p className="rounded-lg bg-gray-700 shadow-xl focus:ring-0 ring-blue-100 ring-offset-2 ring-offset-bgc leading-8 text-2xl mt-2 p-4">
+      <p className="rounded-lg bg-gray-700 shadow-xl focus:ring-0 ring-blue-100 ring-offset-2 ring-offset-bgc leading-8 text-2xl mt-2 p-4 whitespace-pre-wrap">
         {data.board.content}
       </p>
       <ul>

@@ -35,7 +35,7 @@ export default function CommentComp({
           {submit ? '閉じる' : '返信する'}
         </button>
       </div>
-      <div className="m-2">{comment.content}</div>
+      <div className="m-2 whitespace-pre-wrap">{comment.content}</div>
       {submit && (
         <CommentSubmit
           boardId={comment.boardId}
