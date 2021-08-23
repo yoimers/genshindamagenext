@@ -48,6 +48,7 @@ export default function BoardHome({ refetch }: Input) {
   };
   return (
     <div>
+      <a href="/api/graphql">GraphQL Playground</a>
       <p>掲示板のホーム</p>
       <p>掲示板作成</p>
       <form onSubmit={onClick}>

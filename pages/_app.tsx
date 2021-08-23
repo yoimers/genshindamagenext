@@ -9,7 +9,7 @@ import '../styles//styles.css';
 
 const cache = new InMemoryCache();
 const link = new HttpLink({
-  uri: 'http://localhost:4000/',
+  uri: '/api/graphql',
 });
 
 const client = new ApolloClient({
