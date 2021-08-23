@@ -9,7 +9,7 @@ import '../styles//styles.css';
 
 const cache = new InMemoryCache();
 const link = new HttpLink({
-  uri: '/api/graphql',
+  uri: 'https://genshindamagenext.vercel.app/api/graphql',
 });
 
 const client = new ApolloClient({
