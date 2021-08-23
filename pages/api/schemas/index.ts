@@ -9,7 +9,12 @@ export const typeDefs = gql`
   }
   type Mutation {
     createBoard(title: String!, content: String!): BoardcreateResponse!
-    createComment(boardId: Int!, content: String!): CommentcreateResponse!
+    createComment(
+      username: String
+      content: String!
+      boardId: Int!
+      commentId: Int
+    ): CommentcreateResponse!
   }
   type BoardcreateResponse {
     success: Boolean!
@@ -36,11 +41,13 @@ export const typeDefs = gql`
 
   type Comment {
     id: ID!
+    username: String
     content: String!
     boardId: Int!
     published: Boolean!
     createdAt: String!
     updatedAt: String!
     childcomments: [Comment]
+    commentId: String
   }
 `;

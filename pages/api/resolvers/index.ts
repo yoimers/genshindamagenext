@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+
 const prisma = new PrismaClient();
 
 export const resolvers = {
@@ -62,7 +63,6 @@ export const resolvers = {
       return board;
     },
     comments: async (_: any, { id }: { id: string }) => {
-      console.log(id);
       const comments = await prisma.comment.findMany({
         where: {
           boardId: Number(id),
@@ -86,6 +86,29 @@ export const resolvers = {
       return {
         success,
         board,
+      };
+    },
+    createComment: async (
+      _: any,
+      {
+        username,
+        content,
+        boardId,
+        commentId = null,
+      }: { username: string; content: string; boardId: number; commentId: number | null }
+    ) => {
+      const comment = await prisma.comment.create({
+        data: {
+          username,
+          content,
+          boardId,
+          commentId,
+        },
+      });
+      const success = comment ? true : false;
+      return {
+        success,
+        comment,
       };
     },
   },
