@@ -1,39 +1,41 @@
-import { useRouter } from 'next/dist/client/router';
-import React, { ReactElement, useState } from 'react';
+import { Board, Comment } from '@prisma/client';
+import React, { ReactElement, useReducer, useState } from 'react';
+import { Action, State } from './BoardTypes';
 import CommentComp from './CommentComp';
 import CommentSubmit from './CommentSubmit';
 
-type Comm = {
-  id: number;
-  content: string;
-  commentId: number;
-  username: string;
-  boardId: number;
+type Input = {
+  postData: Board & Childcomments;
 };
-type State = {
-  username: string;
-  content: string;
+type Childcomments = {
+  comments: Comment[];
 };
-export default function BoardComments({
-  comments,
-  refetch,
-}: {
-  comments: Comm[];
-  refetch: any;
-}): ReactElement {
-  const [body, setBody] = useState({ username: '', content: '' } as State);
-  const { query } = useRouter();
-  const board = query.board;
-  if (!board || board.length === 0) return <></>;
-  function Childcomment({ comment }: { comment: Comm }): ReactElement {
+export const commentreducer = (prev: State, action: Action): State => {
+  switch (action.action) {
+    case 'username':
+    case 'content':
+      return { ...prev, [action.action]: action.value };
+    case 'submit':
+      if (!prev.username || !prev.content) {
+        return prev;
+      } else {
+        return { username: action.value, content: action.value };
+      }
+  }
+};
+
+export default function BoardComments({ postData }: Input): ReactElement {
+  const [values, dispatch] = useReducer(commentreducer, { username: '', content: '' } as State);
+  const comments = postData.comments;
+
+  function Childcomment({ comment }: { comment: Comment }): ReactElement {
     const childcomment = comments.filter((filcomment) => filcomment.commentId === comment.id);
     return (
       <li className="rounded-lg bg-gray-900 shadow-comment focus:ring-0 ring-blue-100 ring-offset-2 ring-offset-bgc leading-8 text-xl py-2 px-2 mt-4">
-        <CommentComp comment={comment} key={comment.id} refetch={refetch} />
+        <CommentComp comment={comment} key={comment.id} />
         <ul>
-          {childcomment.map((child) => (
-            <Childcomment key={child.id} comment={child} />
-          ))}
+          {childcomment &&
+            childcomment.map((child) => <Childcomment key={child.id} comment={child} />)}
         </ul>
       </li>
     );
@@ -41,7 +43,7 @@ export default function BoardComments({
 
   return (
     <div>
-      {comments.map((comment: Comm) => {
+      {comments.map((comment: Comment) => {
         if (comment.commentId) return;
         return (
           <ul className="mt-4" key={comment.id}>
@@ -49,13 +51,7 @@ export default function BoardComments({
           </ul>
         );
       })}
-      <CommentSubmit
-        boardId={Number(board[0])}
-        commentId={null}
-        body={body}
-        setBody={setBody}
-        refetch={refetch}
-      />
+      <CommentSubmit postData={postData} values={values} dispatch={dispatch} />
     </div>
   );
 }

@@ -17,24 +17,17 @@ function Loading() {
     </aside>
   );
 }
-export default function ContactSidebar({ data, loading, error, fetchMore }: Input) {
-  if (loading) return <Loading />;
-  if (error) {
-    console.log(error);
-    return <p>ERROR</p>;
-  }
-
+export default function BoardSidebar({ allPostsData }: any) {
   return (
-    <aside className="w-52 h-sidebarhight rounded-lg shadow-sm sticky top-2 p-1 text-textcolor">
+    <aside className="w-52 h-sidebarhight rounded-lg shadow-sm sticky top-2 p-1 text-textcolor overflow-auto">
       <ul>
         <Link href={`/boards/`}>
-          <a className="block pl-4 mx-1 mt-2 h-10 leading-10 rounded-lg bg-gray-700 shadow-xl focus:ring-0 ring-blue-100 ring-offset-2 ring-offset-bgc text-lg">
+          <a className="block pl-4 mx-1 mt-2 h-10 leading-10 rounded-lg bg-gray-900 shadow-xl focus:ring-0 ring-blue-100 ring-offset-2 ring-offset-bgc text-lg">
             掲示板へ戻る
           </a>
         </Link>
-        {data &&
-          data.boards &&
-          data.boards.boards.map((board: Board) => {
+        {allPostsData &&
+          allPostsData.map((board: Board) => {
             return (
               <Link href={`/boards/${board.id}`} key={board.id}>
                 <a className="block pl-4 mx-1 mt-2 h-10 leading-10 rounded-lg bg-gray-700 shadow-xl focus:ring-0 ring-blue-100 ring-offset-2 ring-offset-bgc text-lg">
@@ -44,7 +37,7 @@ export default function ContactSidebar({ data, loading, error, fetchMore }: Inpu
             );
           })}
       </ul>
-      <div>
+      {/* <div>
         {data.boards && data.boards.hasMore && (
           <button
             onClick={() => {
@@ -72,7 +65,7 @@ export default function ContactSidebar({ data, loading, error, fetchMore }: Inpu
             Lead More
           </button>
         )}
-      </div>
+      </div> */}
     </aside>
   );
 }

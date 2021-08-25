@@ -1,17 +1,17 @@
+import { Board, Comment } from '@prisma/client';
 import { gql } from 'apollo-server-micro';
 import React, { ChangeEventHandler, ReactElement, useState } from 'react';
 import { useMutation } from 'react-apollo';
+import { Action, State } from './BoardTypes';
 
 type Input = {
-  boardId: number;
-  commentId: number | null;
-  body: State;
-  setBody: React.Dispatch<React.SetStateAction<State>>;
-  refetch: any;
+  values: State;
+  postData?: Board & Childcomments;
+  comment?: Comment;
+  dispatch: React.Dispatch<Action>;
 };
-type State = {
-  username: string;
-  content: string;
+type Childcomments = {
+  comments: Comment[];
 };
 
 const CREATE_COMMENT = gql`
@@ -33,31 +33,30 @@ const CREATE_COMMENT = gql`
     }
   }
 `;
+
 export default function CommentSubmit({
-  boardId,
-  commentId = null,
-  body,
-  setBody,
-  refetch,
+  postData,
+  comment,
+  values,
+  dispatch,
 }: Input): ReactElement {
   const [createComment, { data, loading, error }] = useMutation(CREATE_COMMENT);
   const onChange = (e: any) => {
-    setBody((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    dispatch({ action: e.target.name, value: e.target.value });
   };
   const onClick = async (e: any) => {
     e.preventDefault();
-    setBody({ username: '', content: '' });
-    if (!body.content) return;
-
-    await createComment({
+    if (!values.username || !values.content) return;
+    const commentPromise = createComment({
       variables: {
-        username: body.username || 'ヒルチャール',
-        content: body.content,
-        boardId: Number(boardId),
-        commentId: commentId ? Number(commentId) : null,
+        username: values.username || 'ヒルチャール',
+        content: values.content,
+        boardId: Number(comment?.boardId) || Number(postData?.id),
+        commentId: comment?.id ? Number(comment?.id) : null,
       },
     });
-    refetch();
+    dispatch({ action: 'submit', value: '' });
+    await commentPromise;
   };
 
   return (
@@ -68,7 +67,7 @@ export default function CommentSubmit({
           type="text"
           name="username"
           onChange={onChange}
-          value={body?.username}
+          value={values.username}
           className="h-8 w-64 rounded-lg bg-gray-700 shadow-xl focus:ring-0 ring-blue-100 ring-offset-2 ring-offset-bgc"
         />
       </label>
@@ -77,7 +76,7 @@ export default function CommentSubmit({
         <textarea
           name="content"
           onChange={onChange}
-          value={body?.content}
+          value={values.content}
           className="h-32 w-64 rounded-lg bg-gray-700 shadow-xl focus:ring-0 ring-blue-100 ring-offset-2 ring-offset-bgc"
         />
       </label>
