@@ -3,7 +3,7 @@ import BoardHome from '../../components/Board/BoardHome';
 import gql from 'graphql-tag';
 import { prisma } from '../api/resolvers';
 import LayoutBoards from '../../components/LayoutBoards';
-import { Board } from '@prisma/client';
+import { Board, PrismaClient } from '@prisma/client';
 
 const GET_BOARDLIST = gql`
   query boardlist($after: Int) {
@@ -30,6 +30,7 @@ export default function BoardIndex({ allPostsData }: Input) {
 }
 
 export async function getStaticProps() {
+  const prisma = new PrismaClient();
   const allPostsData = await prisma.board.findMany({
     orderBy: [
       {

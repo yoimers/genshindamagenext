@@ -1,6 +1,6 @@
+import { PrismaClient } from '@prisma/client';
 import React from 'react';
 import gql from 'graphql-tag';
-import { prisma } from '../api/resolvers';
 import BoardMain from '../../components/Board/BoardMain';
 import LayoutBoards from '../../components/LayoutBoards';
 import { Board, Comment } from '@prisma/client';
@@ -36,6 +36,7 @@ export default function BoardBody({ postData, allPostsData }: Input) {
 }
 
 export async function getStaticProps({ params }) {
+  const prisma = new PrismaClient();
   const allPostsData = await prisma.board.findMany({
     orderBy: [
       {
