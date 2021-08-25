@@ -32,10 +32,11 @@ export default function BoardComments({ postData }: Input): ReactElement {
   const [values, dispatch] = useReducer(commentreducer, { username: '', content: '' } as State);
   const [submitcomment, setSubmit] = useState(false as Comment | false);
   const [comments, setComments] = useState(postData.comments);
+  
   useEffect(() => {
     setComments(postData.comments);
   }, [postData.comments]);
-  console.log(comments, postData);
+
   useEffect(() => {
     if (submitcomment === false) return;
     setComments((prev) => {
