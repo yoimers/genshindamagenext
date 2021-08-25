@@ -61,7 +61,7 @@ export async function getStaticProps({ params }) {
       postData: JSON.parse(JSON.stringify(postData)),
       allPostsData: JSON.parse(JSON.stringify(allPostsData)),
     },
-    revalidate: 600,
+    revalidate: 10,
   };
 }
 
