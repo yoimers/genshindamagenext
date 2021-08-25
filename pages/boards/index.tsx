@@ -22,7 +22,6 @@ type Input = {
   allPostsData: Board[];
 };
 export default function BoardIndex({ allPostsData }: Input) {
-  
   return (
     <LayoutBoards allPostsData={allPostsData}>
       <BoardHome />
@@ -42,6 +41,6 @@ export async function getStaticProps() {
     props: {
       allPostsData: JSON.parse(JSON.stringify(allPostsData)),
     },
-    revalidate: 600,
+    revalidate: 5,
   };
 }

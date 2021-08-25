@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { prisma } from '../api/resolvers';
 import BoardMain from '../../components/Board/BoardMain';
 import LayoutBoards from '../../components/LayoutBoards';
-import { Board } from '@prisma/client';
+import { Board, Comment } from '@prisma/client';
 
 const GET_BOARDLIST = gql`
   query boardlist($after: Int) {
@@ -21,10 +21,10 @@ const GET_BOARDLIST = gql`
 
 type Input = {
   allPostsData: Board[];
-  postData: Board & Childcomments;
+  postData: Board & Comments;
 };
-type Childcomments = {
-  childcomments: Comment[];
+type Comments = {
+  comments: Comment[];
 };
 
 export default function BoardBody({ postData, allPostsData }: Input) {
@@ -57,22 +57,24 @@ export async function getStaticProps({ params }) {
   });
   return {
     props: {
+      boardId: params.board,
       postData: JSON.parse(JSON.stringify(postData)),
       allPostsData: JSON.parse(JSON.stringify(allPostsData)),
     },
-    revalidate: 600,
+    revalidate: 5,
   };
 }
 
 export async function getStaticPaths() {
-  const boards = await prisma.board.findMany({
-    select: {
-      id: true,
-    },
-  });
-  const paths = boards.map((board) => {
-    return { params: { board: board.id.toString() } };
-  });
+  // const boards = await prisma.board.findMany({
+  //   select: {
+  //     id: true,
+  //   },
+  // });
+  // const paths = boards.map((board) => {
+  //   return { params: { board: board.id.toString() } };
+  // });
+
   // Returns an array that looks like this:
   // [
   //   {
@@ -87,7 +89,7 @@ export async function getStaticPaths() {
   //   }
   // ]
   return {
-    paths,
+    paths: [],
     fallback: 'blocking',
   };
 }

@@ -1,7 +1,8 @@
 import { Board, Comment } from '@prisma/client';
 import { gql } from 'apollo-server-micro';
-import React, { ChangeEventHandler, ReactElement, useState } from 'react';
+import React, { ChangeEventHandler, ReactElement, useContext, useState } from 'react';
 import { useMutation } from 'react-apollo';
+import { SubmitContext } from './BoardComments';
 import { Action, State } from './BoardTypes';
 
 type Input = {
@@ -41,6 +42,8 @@ export default function CommentSubmit({
   dispatch,
 }: Input): ReactElement {
   const [createComment, { data, loading, error }] = useMutation(CREATE_COMMENT);
+  const setSubmit = useContext(SubmitContext);
+
   const onChange = (e: any) => {
     dispatch({ action: e.target.name, value: e.target.value });
   };
@@ -55,8 +58,14 @@ export default function CommentSubmit({
         commentId: comment?.id ? Number(comment?.id) : null,
       },
     });
-    dispatch({ action: 'submit', value: '' });
-    await commentPromise;
+    dispatch({ action: 'submit', value: '' }); //入力文字消去
+    const { data } = await commentPromise;
+    const newcomment = data.createComment.comment;
+    newcomment.id = Number(newcomment.id);
+    newcomment.commentId = newcomment.commentId ? Number(newcomment.commentId) : null;
+    if (data.createComment.success) {
+      setSubmit(newcomment);
+    }
   };
 
   return (

@@ -3,6 +3,7 @@ import React from 'react';
 import BoardComments from './BoardComments';
 import dayjs from 'dayjs';
 import ja from 'dayjs/locale/ja';
+import { Board, Comment } from '@prisma/client';
 dayjs.locale(ja);
 
 const GET_BOARD = gql`
@@ -21,8 +22,13 @@ const GET_BOARD = gql`
     }
   }
 `;
-
-export default function ContactMain({ postData }: any) {
+type Input = {
+  postData: Board & Comments;
+};
+type Comments = {
+  comments: Comment[];
+};
+export default function ContactMain({ postData }: Input) {
   const DAY = dayjs(postData.createdAt);
   return (
     <div className="m-5 ">

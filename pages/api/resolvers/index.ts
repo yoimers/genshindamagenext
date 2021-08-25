@@ -106,6 +106,9 @@ export const resolvers = {
         },
       });
       const success = comment ? true : false;
+      if (success) {
+        comment.id = Number(comment.id);
+      }
       return {
         success,
         comment,

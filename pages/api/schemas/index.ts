@@ -16,6 +16,10 @@ export const typeDefs = gql`
       commentId: Int
     ): CommentcreateResponse!
   }
+  type Subscription {
+    commentAdded(id: ID!): Comment
+    boardAdded(id: ID!): Board
+  }
   type BoardcreateResponse {
     success: Boolean!
     board: Board

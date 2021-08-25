@@ -40,9 +40,8 @@ export default function BoardHome() {
     setBody({ title: '', content: '' });
     const result = await newboard;
     const board = result.data.createBoard;
-    console.log(board);
     if (board.success) {
-      router.push(`/board/${board.board.id}`);
+      router.push(`/boards/${board.board.id}`);
     }
   };
   return (
