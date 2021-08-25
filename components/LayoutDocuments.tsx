@@ -17,7 +17,7 @@ export default function LayoutDocuments({ children, allPostsData }) {
                 key={id}
                 className="pl-2 block h-10 leading-10 underline text-lg text-textcolor hover:opacity-40"
               >
-                <Link href={`/documents/${id === 'introduction' ? '/' : id}`}>
+                <Link href={`/documents/${id === 'introduction' ? '' : id}`}>
                   <a className="block h-full w-full">{title}</a>
                 </Link>
               </li>
