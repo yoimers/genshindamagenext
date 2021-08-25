@@ -20,7 +20,7 @@ export default function LayoutBoards({ children, allPostsData }: Input) {
           <main className="flex flex-col flex-grow  mr-2 border border-gray-800 rounded-lg shadow-sm p-4 w-mainwidth text-textcolor document">
             {children}
           </main>
-          <BoardSidebar />
+          {/* <BoardSidebar /> */}
         </div>
       </Layout>
     </allPostsDataContext.Provider>

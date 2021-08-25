@@ -2,7 +2,6 @@ import gql from 'graphql-tag';
 import React, { useContext, useState } from 'react';
 import { useMutation } from 'react-apollo';
 import { useRouter } from 'next/router';
-import { Board } from '@prisma/client';
 import { allPostsDataContext } from '../LayoutBoards';
 
 type State = {

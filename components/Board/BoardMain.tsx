@@ -30,6 +30,7 @@ type Comments = {
 };
 export default function ContactMain({ postData }: Input) {
   const DAY = dayjs(postData.createdAt);
+  console.log('ccc');
   return (
     <div className="m-5 ">
       <div className="rounded-lg w-full bg-gray-700 shadow-xl focus:ring-0 ring-blue-100 ring-offset-2 ring-offset-bgc leading-8 text-2xl p-4 whitespace-pre-wrap">
