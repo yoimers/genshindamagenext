@@ -24,7 +24,7 @@ export default function BoardSidebar() {
         {allPosts &&
           allPosts.map((board: Board) => {
             return (
-              <Link href={`/boards/${board.id}`} key={board.id}>
+              <Link href={`/boards/${board.id}`} key={board.id} prefetch={false}>
                 <a className="block pl-4 mx-1 mt-2 h-10 leading-10 rounded-lg bg-gray-700 shadow-xl focus:ring-0 ring-blue-100 ring-offset-2 ring-offset-bgc text-lg  overflow-hidden">
                   {board.title}
                 </a>
