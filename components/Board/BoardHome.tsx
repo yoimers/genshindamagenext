@@ -30,7 +30,6 @@ export default function BoardHome() {
   };
   const onClick = async (e: any) => {
     e.preventDefault();
-    console.log('aaaaaaaaaaaaa');
     if (!body.title || !body.content) return;
     const newboard = createBoard({
       variables: {
@@ -43,7 +42,7 @@ export default function BoardHome() {
     const board = result.data.createBoard;
     console.log(board);
     if (board.success) {
-      // router.push(`/board/${board.board.id}`);
+      router.push(`/board/${board.board.id}`);
     }
   };
   return (

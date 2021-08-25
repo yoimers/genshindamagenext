@@ -22,6 +22,7 @@ type Input = {
   allPostsData: Board[];
 };
 export default function BoardIndex({ allPostsData }: Input) {
+  
   return (
     <LayoutBoards allPostsData={allPostsData}>
       <BoardHome />

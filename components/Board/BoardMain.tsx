@@ -1,7 +1,5 @@
-import { Comment } from '@prisma/client';
 import gql from 'graphql-tag';
 import React from 'react';
-import { useQuery } from 'react-apollo';
 import BoardComments from './BoardComments';
 import dayjs from 'dayjs';
 import ja from 'dayjs/locale/ja';
