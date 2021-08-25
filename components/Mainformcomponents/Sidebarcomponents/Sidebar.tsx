@@ -55,8 +55,12 @@ export default function Sidebar() {
           );
         })}
       </aside>
-      {alert && (
-        <div className="fixed bottom-2 right-2 rounded-md bg-gray-900 shadow-2xl">
+      {
+        <div
+          className={`fixed bottom-2 right-2 rounded-md bg-gray-900 shadow-2xl ${
+            alert ? 'visible' : 'invisible'
+          }`}
+        >
           <div className="relative w-72">
             <div className="flex flex-row opacity-20">
               <Image
@@ -66,12 +70,14 @@ export default function Sidebar() {
                 alt="Picture of the author"
               />
             </div>
-            <p className="block h-full w-full text-center absolute top-1/4 left-0 self-center text-3xl text-textcolor font-black text-shadow">
+            <p
+              className={`block h-full w-full text-center absolute top-1/4 left-0 self-center text-3xl text-textcolor font-black text-shadow`}
+            >
               ドラッグ&ドロップだよ！
             </p>
           </div>
         </div>
-      )}
+      }
     </>
   );
 }
