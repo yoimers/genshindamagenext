@@ -36,10 +36,12 @@ export default function BoardBody({ postData, allPostsData }: Input) {
 }
 
 export async function getStaticProps({ params }) {
-  const postData = await prisma.board.findFirst({
-    where: {
-      id: Number(params.board),
-    },
+  const allPostsData = await prisma.board.findMany({
+    orderBy: [
+      {
+        createdAt: 'desc',
+      },
+    ],
     include: {
       comments: {
         include: {
@@ -48,13 +50,8 @@ export async function getStaticProps({ params }) {
       },
     },
   });
-  const allPostsData = await prisma.board.findMany({
-    orderBy: [
-      {
-        createdAt: 'desc',
-      },
-    ],
-  });
+  const postData = allPostsData.filter((post) => Number(params.board) === post.id)[0];
+
   return {
     props: {
       boardId: params.board,
