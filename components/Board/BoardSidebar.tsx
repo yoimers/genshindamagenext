@@ -1,9 +1,7 @@
 import { Board } from '@prisma/client';
-import { ApolloError, ApolloQueryResult } from 'apollo-client';
 import Link from 'next/link';
 import React, { useContext } from 'react';
 import { allPostsDataContext } from '../LayoutBoards';
-
 
 function Loading() {
   return (
