@@ -83,16 +83,17 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  // const boards = await prisma.board.findMany({
-  //   select: {
-  //     id: true,
-  //   },
-  // });
-  // const paths = boards.map((board) => {
-  //   return { params: { board: board.id.toString() } };
-  // });
+  const prisma = new PrismaClient();
+  const boards = await prisma.board.findMany({
+    select: {
+      id: true,
+    },
+  });
+  const paths = boards.map((board) => {
+    return { params: { board: board.id.toString() } };
+  });
   return {
-    paths: [],
+    paths,
     fallback: 'blocking',
   };
 }

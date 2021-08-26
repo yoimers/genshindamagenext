@@ -34,7 +34,9 @@ export default function CommentComp({ comment }: Input): ReactElement {
           {comment?.id} : {comment?.username}
         </span>
         <span>
-          <span className="mr-5 text-base">{DAY.format('YYYY-MM-DD-ddd HH:mm:ss')}</span>
+          <span className="mr-5 text-base">
+            {DAY.format('YYYY-MM-DD-ddd HH:mm:ss')}
+          </span>
           <button
             onClick={() => setSubmit((prev) => !prev)}
             className="rounded-lg bg-gray-900 shadow-comment focus:ring-0 ring-blue-100 ring-offset-2 ring-offset-bgc leading-8 text-xl py-2 px-2 mr-2"
@@ -43,8 +45,10 @@ export default function CommentComp({ comment }: Input): ReactElement {
           </button>
         </span>
       </div>
-      <div className="m-2 whitespace-pre-wrap">{comment?.content}</div>
-      {submit && <CommentSubmit comment={comment} values={values} dispatch={dispatch} />}
+      <div className="m-2 whitespace-pre-wrap">
+        {comment?.content}
+      </div>
+      {/* {submit && <CommentSubmit comment={comment} values={values} dispatch={dispatch} />} */}
     </div>
   );
 }

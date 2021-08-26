@@ -76,7 +76,7 @@ export default function BoardComments({ postData }: Input): ReactElement {
           </ul>
         );
       })}
-      <CommentSubmit postData={postData} values={values} dispatch={dispatch} />
+      {/* <CommentSubmit postData={postData} values={values} dispatch={dispatch} /> */}
     </div>
   );
 }
