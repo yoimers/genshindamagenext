@@ -1,5 +1,6 @@
 import { ApolloQueryResult } from 'apollo-client';
 import gql from 'graphql-tag';
+import { useRouter } from 'next/dist/client/router';
 import React, { useState } from 'react';
 import { OperationVariables, useApolloClient, useMutation } from 'react-apollo';
 
@@ -26,21 +27,29 @@ type Input = {
 export default function BoardHome({ refetch }: Input) {
   const [body, setBody] = useState({ title: '', content: '' } as State);
   const [createBoard, { data, loading, error }] = useMutation(CREATE_BOARD);
+  const router = useRouter();
   const onChange = (e: any) => {
     setBody((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   const onClick = async (e: any) => {
     e.preventDefault();
-    setBody({ title: '', content: '' });
     if (!body.title || !body.content) return;
-    await createBoard({
+    const newboard = createBoard({
       variables: {
         title: body.title,
         content: body.content,
       },
     });
-    refetch();
+    setBody({ title: '', content: '' });
+    const result = await newboard;
+    const board = result.data.createBoard;
+    if (board.success) {
+      router.push(`/boards/${board.board.id}`);
+      board.board.id = Number(board.board.id);
+      refetch();
+    }
   };
+
   return (
     <div className="m-5 mt-2 ">
       <p className="text-3xl text-blue-100">スレ作成</p>
