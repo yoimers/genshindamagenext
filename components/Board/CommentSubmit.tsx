@@ -2,7 +2,6 @@ import { Board, Comment } from '@prisma/client';
 import { gql } from 'apollo-server-micro';
 import React, { ChangeEventHandler, ReactElement, useContext, useState } from 'react';
 import { useMutation } from 'react-apollo';
-import { SubmitContext } from './BoardComments';
 import { Action, State } from './BoardTypes';
 
 type Input = {
@@ -16,7 +15,12 @@ type Childcomments = {
 };
 
 const CREATE_COMMENT = gql`
-  mutation ($username: String, $content: String!, $boardId: Int!, $commentId: Int) {
+  mutation (
+    $username: String
+    $content: String!
+    $boardId: Int!
+    $commentId: Int
+  ) {
     createComment(
       username: $username
       content: $content
@@ -41,8 +45,8 @@ export default function CommentSubmit({
   values,
   dispatch,
 }: Input): ReactElement {
-  const [createComment, { data, loading, error }] = useMutation(CREATE_COMMENT);
-  const setSubmit = useContext(SubmitContext);
+  const [createComment, { data, loading, error }] =
+    useMutation(CREATE_COMMENT);
 
   const onChange = (e: any) => {
     dispatch({ action: e.target.name, value: e.target.value });
@@ -62,9 +66,10 @@ export default function CommentSubmit({
     const { data } = await commentPromise;
     const newcomment = data.createComment.comment;
     newcomment.id = Number(newcomment.id);
-    newcomment.commentId = newcomment.commentId ? Number(newcomment.commentId) : null;
+    newcomment.commentId = newcomment.commentId
+      ? Number(newcomment.commentId)
+      : null;
     if (data.createComment.success) {
-      setSubmit(newcomment);
     }
   };
 
