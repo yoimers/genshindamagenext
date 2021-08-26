@@ -40,3 +40,25 @@ html {
   font-size: 18px;
   font-weight: 600;
 }
+
+
+aside::-webkit-scrollbar {
+  width: 10px;
+}
+
+aside::-webkit-scrollbar-thumb {
+  background: rgba(23, 25, 27, 0.8);
+
+  border-radius: 3px;
+}
+
+aside::-webkit-scrollbar-track {
+  background: rgba(43, 45, 47, 1);
+}
+
+aside::-webkit-scrollbar-button {
+  background: rgba(43, 45, 47, 1);
+}
+aside::-webkit-scrollbar-corner {
+  background: rgba(43, 45, 47, 1);
+}

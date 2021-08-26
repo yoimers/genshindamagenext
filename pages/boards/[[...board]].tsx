@@ -1,9 +1,5 @@
 import React from 'react';
 import Layout from '../../components/Layout';
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
-import { ApolloProvider } from '@apollo/react-hooks';
 import { useRouter } from 'next/dist/client/router';
 import BoardMain from '../../components/Board/BoardMain';
 import BoardSidebar from '../../components/Board/BoardSidebar';
