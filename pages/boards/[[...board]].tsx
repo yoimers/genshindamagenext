@@ -40,12 +40,11 @@ export default function BoardBody({ postData, allPostsData }: Input) {
   return (
     <AllPostsContext.Provider value={allPostsData}>
       <LayoutBoards>
-        {/* {boardId === 0 ? (
+        {boardId === 0 ? (
           <BoardHome />
         ) : (
           <BoardMain postData={postData} />
-        )} */}
-        <></>
+        )}
       </LayoutBoards>
     </AllPostsContext.Provider>
   );
