@@ -1,9 +1,11 @@
 import { PrismaClient } from '@prisma/client';
-import React from 'react';
+import React, { createContext } from 'react';
 import gql from 'graphql-tag';
 import BoardMain from '../../components/Board/BoardMain';
 import LayoutBoards from '../../components/LayoutBoards';
 import { Board, Comment } from '@prisma/client';
+import { useRouter } from 'next/router';
+import BoardHome from '../../components/Board/BoardHome';
 
 const GET_BOARDLIST = gql`
   query boardlist($after: Int) {
@@ -19,19 +21,31 @@ const GET_BOARDLIST = gql`
   }
 `;
 
+type Boards = (Board & Comments)[];
 type Input = {
-  allPostsData: Board[];
+  allPostsData: Boards;
   postData: Board & Comments;
 };
 type Comments = {
   comments: Comment[];
 };
 
+export const AllPostsContext = createContext([] as Boards);
 export default function BoardBody({ postData, allPostsData }: Input) {
+  const {
+    query: { board },
+  } = useRouter();
+  const boardId = board ? Number(board[0]) : 0; //0がhome それ以外が掲示板のId
   return (
-    <LayoutBoards allPostsData={allPostsData}>
-      <BoardMain postData={postData} />
-    </LayoutBoards>
+    <AllPostsContext.Provider value={allPostsData}>
+      <LayoutBoards>
+        {boardId === 0 ? (
+          <BoardHome />
+        ) : (
+          <BoardMain postData={postData} />
+        )}
+      </LayoutBoards>
+    </AllPostsContext.Provider>
   );
 }
 
@@ -51,15 +65,20 @@ export async function getStaticProps({ params }) {
       },
     },
   });
-  const postData = allPostsData.filter((post) => Number(params.board) === post.id)[0];
+  const postData =
+    allPostsData.filter((post) => {
+      const paramId = params && params.board && params.board[0];
+      return Number(paramId) === post.id;
+    })[0] || null;
+  const boardId = params ? null : params.board;
 
   return {
     props: {
-      boardId: params.board,
+      boardId,
       postData: JSON.parse(JSON.stringify(postData)),
       allPostsData: JSON.parse(JSON.stringify(allPostsData)),
     },
-    revalidate: 10,
+    // revalidate: 10,
   };
 }
 
@@ -72,20 +91,6 @@ export async function getStaticPaths() {
   // const paths = boards.map((board) => {
   //   return { params: { board: board.id.toString() } };
   // });
-
-  // Returns an array that looks like this:
-  // [
-  //   {
-  //     params: {
-  //       id: 'ssg-ssr'
-  //     }
-  //   },
-  //   {
-  //     params: {
-  //       id: 'pre-rendering'
-  //     }
-  //   }
-  // ]
   return {
     paths: [],
     fallback: 'blocking',

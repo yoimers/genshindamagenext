@@ -29,7 +29,7 @@ type Comments = {
   comments: Comment[];
 };
 export default function ContactMain({ postData }: Input) {
-  const DAY = dayjs(postData.createdAt);
+  const DAY = dayjs(postData?.createdAt);
   return (
     <div className="m-5 ">
       <div className="rounded-lg w-full bg-gray-700 shadow-xl focus:ring-0 ring-blue-100 ring-offset-2 ring-offset-bgc leading-8 text-2xl p-4 whitespace-pre-wrap">
@@ -39,7 +39,7 @@ export default function ContactMain({ postData }: Input) {
           {postData && postData.content}
         </p>
       </div>
-      <ul>{postData && postData.comments && <BoardComments postData={postData} />}</ul>
+      <ul>{1 || (postData && postData.comments && <BoardComments postData={postData} />)}</ul>
     </div>
   );
 }

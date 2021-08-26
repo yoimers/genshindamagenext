@@ -2,7 +2,6 @@ import gql from 'graphql-tag';
 import React, { useContext, useState } from 'react';
 import { useMutation } from 'react-apollo';
 import { useRouter } from 'next/router';
-import { allPostsDataContext } from '../LayoutBoards';
 
 type State = {
   title: string;
@@ -24,7 +23,6 @@ const CREATE_BOARD = gql`
 export default function BoardHome() {
   const [body, setBody] = useState({ title: '', content: '' } as State);
   const [createBoard, { data, loading, error }] = useMutation(CREATE_BOARD);
-  const { allPosts, setAllPosts } = useContext(allPostsDataContext);
   const router = useRouter();
   const onChange = (e: any) => {
     setBody((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -44,7 +42,6 @@ export default function BoardHome() {
     if (board.success) {
       router.push(`/boards/${board.board.id}`);
       board.board.id = Number(board.board.id);
-      setAllPosts(allPosts.concat(board.board));
     }
   };
   return (

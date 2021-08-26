@@ -1,7 +1,7 @@
 import { Board } from '@prisma/client';
 import Link from 'next/link';
 import React, { useContext } from 'react';
-import { allPostsDataContext } from '../LayoutBoards';
+import { AllPostsContext } from '../../pages/boards/[[...board]]';
 
 function Loading() {
   return (
@@ -11,8 +11,7 @@ function Loading() {
   );
 }
 export default function BoardSidebar() {
-  const { allPosts, setAllPosts } = useContext(allPostsDataContext);
-
+  const allPosts = useContext(AllPostsContext);
   return (
     <aside className="w-52 h-sidebarhight rounded-lg shadow-sm sticky top-2 p-1 text-textcolor overflow-auto">
       <ul>

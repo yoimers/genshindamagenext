@@ -23,7 +23,7 @@ type Input = {
 };
 export default function BoardIndex({ allPostsData }: Input) {
   return (
-    <LayoutBoards allPostsData={allPostsData}>
+    <LayoutBoards>
       <BoardHome />
     </LayoutBoards>
   );

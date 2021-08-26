@@ -24,15 +24,13 @@ export const commentreducer = (prev: State, action: Action): State => {
       }
   }
 };
-export const SubmitContext = createContext(
-  {} as React.Dispatch<React.SetStateAction<false | Comment>>
-);
+
 
 export default function BoardComments({ postData }: Input): ReactElement {
   const [values, dispatch] = useReducer(commentreducer, { username: '', content: '' } as State);
   const [submitcomment, setSubmit] = useState(false as Comment | false);
   const [comments, setComments] = useState(postData.comments);
-  
+
   useEffect(() => {
     setComments(postData.comments);
   }, [postData.comments]);
@@ -69,18 +67,16 @@ export default function BoardComments({ postData }: Input): ReactElement {
   }
 
   return (
-    <SubmitContext.Provider value={setSubmit}>
-      <div>
-        {comments.map((comment: Comment) => {
-          if (comment.commentId) return;
-          return (
-            <ul className="mt-4" key={comment.id}>
-              <Childcomment comment={comment} comments={comments} />
-            </ul>
-          );
-        })}
-        <CommentSubmit postData={postData} values={values} dispatch={dispatch} />
-      </div>
-    </SubmitContext.Provider>
+    <div>
+      {comments.map((comment: Comment) => {
+        if (comment.commentId) return;
+        return (
+          <ul className="mt-4" key={comment.id}>
+            <Childcomment comment={comment} comments={comments} />
+          </ul>
+        );
+      })}
+      <CommentSubmit postData={postData} values={values} dispatch={dispatch} />
+    </div>
   );
 }
