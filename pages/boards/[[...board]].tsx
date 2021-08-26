@@ -50,52 +50,52 @@ export default function BoardBody({ postData, allPostsData }: Input) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const prisma = new PrismaClient();
-  const allPostsData = await prisma.board.findMany({
-    orderBy: [
-      {
-        createdAt: 'desc',
-      },
-    ],
-    include: {
-      comments: {
-        include: {
-          childcomments: true,
-        },
-      },
-    },
-  });
-  const postData =
-    allPostsData.filter((post) => {
-      const paramId = params && params.board && params.board[0];
-      return Number(paramId) === post.id;
-    })[0] || null;
-  const boardId = params ? null : params.board;
+// export const getStaticProps: GetStaticProps = async ({ params }) => {
+//   const prisma = new PrismaClient();
+//   const allPostsData = await prisma.board.findMany({
+//     orderBy: [
+//       {
+//         createdAt: 'desc',
+//       },
+//     ],
+//     include: {
+//       comments: {
+//         include: {
+//           childcomments: true,
+//         },
+//       },
+//     },
+//   });
+//   const postData =
+//     allPostsData.filter((post) => {
+//       const paramId = params && params.board && params.board[0];
+//       return Number(paramId) === post.id;
+//     })[0] || null;
+//   const boardId = params ? null : params.board;
 
-  return {
-    props: {
-      boardId,
-      postData: JSON.parse(JSON.stringify(postData)),
-      allPostsData: JSON.parse(JSON.stringify(allPostsData)),
-    },
-    // revalidate: 10,
-  };
-};
+//   return {
+//     props: {
+//       boardId,
+//       postData: JSON.parse(JSON.stringify(postData)),
+//       allPostsData: JSON.parse(JSON.stringify(allPostsData)),
+//     },
+//     // revalidate: 10,
+//   };
+// };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const prisma = new PrismaClient();
-  const boards = await prisma.board.findMany({
-    select: {
-      id: true,
-    },
-  });
-  const paths = boards.map((board) => {
-    return { params: { board: [board.id.toString()] } };
-  });
-  paths.push({ params: { board: ['0'] } });
-  return {
-    paths,
-    fallback: 'blocking',
-  };
-};
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const prisma = new PrismaClient();
+//   const boards = await prisma.board.findMany({
+//     select: {
+//       id: true,
+//     },
+//   });
+//   const paths = boards.map((board) => {
+//     return { params: { board: [board.id.toString()] } };
+//   });
+//   paths.push({ params: { board: ['0'] } });
+//   return {
+//     paths,
+//     fallback: 'blocking',
+//   };
+// };
