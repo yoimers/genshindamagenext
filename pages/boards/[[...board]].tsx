@@ -6,6 +6,7 @@ import LayoutBoards from '../../components/LayoutBoards';
 import { Board, Comment } from '@prisma/client';
 import { useRouter } from 'next/router';
 import BoardHome from '../../components/Board/BoardHome';
+import { GetStaticPaths, GetStaticProps } from 'next';
 
 const GET_BOARDLIST = gql`
   query boardlist($after: Int) {
@@ -39,17 +40,18 @@ export default function BoardBody({ postData, allPostsData }: Input) {
   return (
     <AllPostsContext.Provider value={allPostsData}>
       <LayoutBoards>
-        {boardId === 0 ? (
+        {/* {boardId === 0 ? (
           <BoardHome />
         ) : (
           <BoardMain postData={postData} />
-        )}
+        )} */}
+        <></>
       </LayoutBoards>
     </AllPostsContext.Provider>
   );
 }
 
-export async function getStaticProps({ params }) {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const prisma = new PrismaClient();
   const allPostsData = await prisma.board.findMany({
     orderBy: [
@@ -80,9 +82,9 @@ export async function getStaticProps({ params }) {
     },
     // revalidate: 10,
   };
-}
+};
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const prisma = new PrismaClient();
   const boards = await prisma.board.findMany({
     select: {
@@ -90,10 +92,11 @@ export async function getStaticPaths() {
     },
   });
   const paths = boards.map((board) => {
-    return { params: { board: board.id.toString() } };
+    return { params: { board: [board.id.toString()] } };
   });
+  paths.push({ params: { board: ['0'] } });
   return {
     paths,
     fallback: 'blocking',
   };
-}
+};
