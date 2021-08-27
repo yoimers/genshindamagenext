@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import ja from 'dayjs/locale/ja';
 import { useQuery } from 'react-apollo';
 import Image from 'next/image';
+import ErrorComp from './ErrorComp';
 dayjs.locale(ja);
 
 const GET_BOARD = gql`
@@ -20,6 +21,7 @@ const GET_BOARD = gql`
         boardId
         username
         commentId
+        createdAt
       }
     }
   }
@@ -29,18 +31,16 @@ type Input = {
 };
 function Loading(): ReactElement {
   return (
-    <Image
-      src={'/images/loadingklee.gif'}
-      width={300}
-      layout={'fill'}
-      alt="Picture of the author"
-    />
+    <div className="w-96 mx-auto">
+      <Image src={'/images/loadingklee.gif'} width={600} height={600} alt="Picture of the author" />
+    </div>
   );
 }
+
 export default function ContactMain({ boardId }: Input) {
   const { data, loading, error, refetch } = useQuery(GET_BOARD, { variables: { id: boardId } });
   if (loading) return <Loading />;
-  if (error) return <p>ERROR</p>;
+  if (error) return <ErrorComp />;
   let DAY;
   if (data) {
     const d = new Date(Number(data.board.createdAt));

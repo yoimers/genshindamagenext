@@ -9,6 +9,7 @@ type Comm = {
   commentId: number;
   username: string;
   boardId: number;
+  createdAt: string;
 };
 type State = {
   username: string;

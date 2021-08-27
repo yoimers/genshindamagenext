@@ -2,6 +2,8 @@ import { Board } from '@prisma/client';
 import { ApolloError, ApolloQueryResult } from 'apollo-client';
 import Link from 'next/link';
 import React from 'react';
+import Image from 'next/image';
+import ErrorComp from './ErrorComp';
 
 type Input = {
   data: any;
@@ -13,15 +15,14 @@ type Input = {
 function Loading() {
   return (
     <aside className="w-52 h-sidebarhight rounded-lg shadow-sm sticky top-2 p-1 text-textcolor">
-      LOADING
+      <Image src={'/images/loadingklee.gif'} width={600} height={600} alt="Picture of the author" />
     </aside>
   );
 }
 export default function ContactSidebar({ data, loading, error, fetchMore }: Input) {
   if (loading) return <Loading />;
   if (error) {
-    console.log(error);
-    return <p>ERROR</p>;
+    return <ErrorComp />;
   }
 
   return (
