@@ -45,7 +45,7 @@ export default function ContactSidebar({ data, loading, error, fetchMore }: Inpu
             );
           })}
       </ul>
-      <div>
+      <div className="w-full pr-2">
         {data.boards && data.boards.hasMore && (
           <button
             onClick={() => {
@@ -69,7 +69,7 @@ export default function ContactSidebar({ data, loading, error, fetchMore }: Inpu
                 },
               });
             }}
-            className="block pl-4 mx-1 mt-2 h-10 leading-10 rounded-lg bg-gray-900 shadow-xl focus:ring-0 ring-blue-100 ring-offset-2 ring-offset-bgc text-lg"
+            className="block w-full pl-4 mx-1 mt-2 h-10 leading-10 rounded-lg bg-gray-900 shadow-xl focus:ring-0 ring-blue-100 ring-offset-2 ring-offset-bgc text-lg text-left"
           >
             Lead More
           </button>
