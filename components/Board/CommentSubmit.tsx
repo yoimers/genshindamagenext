@@ -47,12 +47,18 @@ export default function CommentSubmit({
   const onClick = async (e: any) => {
     e.preventDefault();
     setBody({ username: '', content: '' });
-    if (!body.content) return;
-
+    if (!body.content.match(/[^\n]/)) return;
+    let content = body.content.replace(/(\n)+/g, '\n');
+    if (content[0] === '\n') {
+      content = content.slice(1);
+    }
+    if (content[content.length - 1] === '\n') {
+      content = content.slice(0, -1);
+    }
     await createComment({
       variables: {
         username: body.username || 'ヒルチャール',
-        content: body.content,
+        content,
         boardId: Number(boardId),
         commentId: commentId ? Number(commentId) : null,
       },

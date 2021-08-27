@@ -33,11 +33,19 @@ export default function BoardHome({ refetch }: Input) {
   };
   const onClick = async (e: any) => {
     e.preventDefault();
-    if (!body.title || !body.content) return;
+    if (!body.title || !body.content.match(/[^\n]/)) return;
+    let content = body.content.replace(/(\n)+/g, '\n');
+    const title = body.title;
+    if (content[0] === '\n') {
+      content = content.slice(1);
+    }
+    if (content[content.length - 1] === '\n') {
+      content = content.slice(0, -1);
+    }
     const newboard = createBoard({
       variables: {
-        title: body.title,
-        content: body.content,
+        title,
+        content,
       },
     });
     setBody({ title: '', content: '' });
