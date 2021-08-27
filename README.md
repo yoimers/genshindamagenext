@@ -2,5 +2,4 @@
 
 ## 以下は MD 練習ついでにメモ
 
-ダメージ計算に使う膨大なステータスは useReducer を使ってみた
-”引用”
+[”デプロイ先”](https://genshindamagenext.vercel.app/)
