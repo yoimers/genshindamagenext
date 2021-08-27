@@ -7,6 +7,7 @@ type SeoType = {
   pageImgWidth?: number;
   pageImgHeight?: number;
 };
+
 export default function Seo({
   pageTitle,
   pageDescription,
