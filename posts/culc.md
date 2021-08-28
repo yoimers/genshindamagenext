@@ -14,6 +14,8 @@ date: '2020-01-01'
 <img src="/images/B合計HP.svg" height="60%" width="60%">
 <br>
 <img src="/images/B総合攻撃力.svg" height="60%" width="60%">  
+草薙の稲光用のステ実装(21/08/28)
+武器欄から設定可能。詳細はintroductionにて
 <br>
 
 
@@ -60,6 +62,8 @@ r=0.2ぐらいにすると会心率70%-会心ダメ200%程度のバランスが�
 ***
 <br>
 <img src="/images/B元素ダメ.svg" height="40%" width="40%">
+聖遺物の左下の方に「絶縁の旗印実装」用のステ追加(21/08/28)
+'元チャのx%分をE%に変換'
 <br>
 <br>
 
