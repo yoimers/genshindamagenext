@@ -6,5 +6,6 @@ export default function deletechangecharartwepaction(prevState: AllFormState, ac
   if (action.action === 'deletecharartwepaction') {
     delete prev[action.id];
   }
+  console.log('deletedelete');
   return prev;
 }

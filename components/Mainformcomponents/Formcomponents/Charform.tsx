@@ -48,12 +48,36 @@ export default function Charform({ children, g, id }: any) {
               <Inputform label={{ d: 50 }} id={id} childid={'5'} />
               <Inputform label={{ e: 0 }} id={id} childid={'6'} />
               <Inputform
-                label={{ n: 0, a: 24, b: 30, h: 24, hr: 1.2, ea: 15, em: 187, ac: 0, bc: 0, hc: 0 }}
+                label={{
+                  n: 0,
+                  a: 24,
+                  b: 30,
+                  h: 24,
+                  hr: 1.2,
+                  ea: 15,
+                  em: 187,
+                  ac: 0,
+                  bc: 0,
+                  hc: 0,
+                  ec: 32,
+                }}
                 id={id}
                 childid={'7'}
               />
               <Inputform
-                label={{ n: 0, a: 24, b: 30, h: 24, hr: 1.2, ea: 15, em: 187, ac: 0, bc: 0, hc: 0 }}
+                label={{
+                  n: 0,
+                  a: 24,
+                  b: 30,
+                  h: 24,
+                  hr: 1.2,
+                  ea: 15,
+                  em: 187,
+                  ac: 0,
+                  bc: 0,
+                  hc: 0,
+                  ec: 32,
+                }}
                 id={id}
                 childid={'8'}
               />

@@ -37,7 +37,7 @@ export const ChartContext = createContext(
 const reducer = (typetree: TypeTree[], action: Action): TypeTree[] => {
   switch (action.action) {
     case 'createNode':
-      return createNode(typetree, action.id, action.type);
+      return createNode(typetree, action.id, action.type, action.fromId);
     case 'deleteNode':
       return deleteNode(typetree, action.id);
     case 'initNode':
@@ -110,7 +110,7 @@ export default function Main() {
         <StateButtonContext.Provider value={{ statbuttons, setButton }}>
           <ChartContext.Provider value={{ chart, setChart }}>
             <DndProvider backend={HTML5Backend}>
-              <div className="flex flex-nowrap bg-transparent min-h-full">
+              <div className="my-2 flex flex-nowrap bg-transparent min-h-full">
                 <main className="w-mainwidth">
                   <Typestructure />
                   <StatusButton />

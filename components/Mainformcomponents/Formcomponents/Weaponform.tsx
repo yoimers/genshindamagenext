@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useState } from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import { CharArtWepAction, CharArtWepFormState, Equip } from '../../Statuslist/type';
 import { StructureContext, AllFormContext } from '../Main';
 import Delete from './Delete';
@@ -24,7 +24,11 @@ export default function Weaponform({ children, g, id }: any) {
     reset: false,
     delay: 100,
   });
-
+  useEffect(() => {
+    return () => {
+      statusdispatch({ action: 'deletecharartwepaction', id });
+    };
+  }, []);
   return (
     <animated.div style={props}>
       <div className={`ml-2`}>
@@ -40,7 +44,17 @@ export default function Weaponform({ children, g, id }: any) {
             <div className="m-2 grid grid-cols-6 h-30">
               <Inputform label={{ ab: 674 }} id={id} childid={'1'} />
               <Inputform
-                label={{ c: 22.1, d: 66.2, a: 49.6, b: 58.3, h: 46.6, e: 20, em: 165, hr: 1.2 }}
+                label={{
+                  c: 22.1,
+                  d: 66.2,
+                  a: 49.6,
+                  b: 58.3,
+                  h: 46.6,
+                  e: 20,
+                  em: 165,
+                  hr: 1.2,
+                  ec: 55.1,
+                }}
                 id={id}
                 childid={'2'}
               />
@@ -55,6 +69,7 @@ export default function Weaponform({ children, g, id }: any) {
                   e: 20,
                   em: 165,
                   hr: 1.2,
+                  ectoa: 28,
                 }}
                 id={id}
                 childid={'3'}
@@ -70,6 +85,7 @@ export default function Weaponform({ children, g, id }: any) {
                   e: 20,
                   em: 165,
                   hr: 1.2,
+                  ectoa_upper: 80,
                 }}
                 id={id}
                 childid={'4'}

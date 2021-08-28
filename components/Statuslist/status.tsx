@@ -23,6 +23,11 @@ export const stat = {
   s: '',
   r: '期待値-最大値比',
   select: '反応率',
+  ec: '元素チャージ',
+  ectoa: '元チャ100%越x%分をA%に変換',
+  ectoa_upper: '元チャ100%越の変換上限',
+  ectoe: '元チャのx%分をE%に変換',
+  ectoe_upper: '元チャの変換上限',
   n: undefined,
 };
 export const initst = {
@@ -49,6 +54,11 @@ export const initst = {
   ahs: 0, //スキル
   s: 0,
   r: 0,
+  ec: 46.6,
+  ectoa: 28,
+  ectoa_upper: 80,
+  ectoe: 25,
+  ectoe_upper: 75,
   select: 0,
 };
 export const st = {
@@ -75,5 +85,10 @@ export const st = {
   ahs: 0, //スキル
   s: 0,
   r: 0,
+  ec: 100,
+  ectoa: 0,
+  ectoa_upper: 0,
+  ectoe: 0,
+  ectoe_upper: 75,
   select: 0,
 };

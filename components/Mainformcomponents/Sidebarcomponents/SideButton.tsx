@@ -40,6 +40,7 @@ export default function SideButton({ text, img, type, setAlert }: ButtonData) {
       const start = Date.now();
       localStorage.setItem('Statuslist', JSON.stringify(status));
       const allcase = calculator({ types, status });
+      console.log(allcase);
       createstatbuttons(allcase, setButton);
 
       const end = Date.now();

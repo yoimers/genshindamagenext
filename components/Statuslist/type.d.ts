@@ -22,6 +22,11 @@ export type StatusName = {
   ahs: string; //スキル
   s: string;
   r: string;
+  ec: string; //元素チャージ
+  ectoa: string; //草薙変換
+  ectoa_upper: string;
+  ectoe: string; //草薙変換
+  ectoe_upper: string;
   select: string;
 };
 export type Label =
@@ -49,6 +54,11 @@ export type Label =
   | 's'
   | 'r'
   | 'select'
+  | 'ec'
+  | 'ectoa'
+  | 'ectoa_upper'
+  | 'ectoe'
+  | 'ectoe_upper'
   | 'n';
 export type CharArtWepFormState = { [chilid: string]: { name: Label; value: string | number } };
 export type AllFormState = { [id: string]: CharArtWepFormState };
@@ -112,6 +122,11 @@ export type Status = {
   ahs: number; //スキル
   s: number;
   r: number;
+  ec: number; //元素チャージ
+  ectoa: number;
+  ectoa_upper: number;
+  ectoe: number;
+  ectoe_upper: number;
   select: number;
 };
 
@@ -135,7 +150,7 @@ interface CreateNode {
   action: 'createNode';
   id: string;
   type: Equip;
-  status?: Status;
+  fromId?: string;
 }
 interface DeleteNode {
   action: 'deleteNode';
@@ -149,7 +164,7 @@ interface SiblingNode {
   action: 'siblingNode';
   id: string;
   type: Equip;
-  status?: Status;
+  fromId?: string;
 }
 export type Action = CreateNode | DeleteNode | InitNode | SiblingNode;
 
@@ -196,6 +211,7 @@ export type CulcResult = {
   d: number;
   b: number;
   h: number;
+  ec: number;
   expecteddamage: number;
   expected_max_damage: number;
   maxdamage: number;

@@ -112,6 +112,14 @@ export default function Optstatus({ culc }: { culc: Culc }) {
             strokeWidth={3}
             activeDot={{ r: 8 }}
           />
+          <Line
+            type="basis"
+            dataKey="ec"
+            stroke="hsla(283, 80%, 80%, 0.6)"
+            dot={false}
+            strokeWidth={3}
+            activeDot={{ r: 8 }}
+          />
         </LineChart>
       </div>
       <OptTitle culc={culc} />
@@ -164,6 +172,10 @@ const CustomTooltip = ({
           style={{ color: payload[4].color }}
           className="label"
         >{`${stat['h']}:  ${payload[4].value}`}</p>
+        <p
+          style={{ color: payload[5].color }}
+          className="label"
+        >{`${stat['ec']}:  ${payload[5].value}`}</p>
       </div>
     );
   }
@@ -178,6 +190,7 @@ function OptTitle({ culc }: { culc: Culc }): ReactElement {
     h: 'hsla(43, 80%, 80%, 0.6)',
     c: 'hsla(156, 80%, 80%, 0.6)',
     d: 'hsla(323, 80%, 80%, 0.6)',
+    ec: 'hsla(283, 80%, 80%, 0.6)',
     text: 'hsla(0, 0%, 76%, 0.6)',
   };
   return (
@@ -200,7 +213,26 @@ function OptTitle({ culc }: { culc: Culc }): ReactElement {
         <span style={{ color: color.h }}>HP%: {Number(culc.status.h.toFixed(1))}% </span>
       </p>
       <p>
+        <span style={{ color: color.ec }}>
+          元素チャージ%: {Number(culc.status.ec.toFixed(1))}%{' '}
+        </span>
+        <span style={{ color: color.ec }}>
+          元素チャ%→A%: {Number(culc.status.ectoa.toFixed(1))}%{' '}
+        </span>
+        <span style={{ color: color.ec }}>
+          元素チャ%→A%上限: {Number(culc.status.ectoa_upper.toFixed(1))}%{' '}
+        </span>
+      </p>
+      <p>
         <span style={{ color: color.text }}>元素ダメ%: {Number(culc.status.e.toFixed(1))}% </span>
+        <span style={{ color: color.text }}>
+          元チャ%→E%: {Number(culc.status.ectoe.toFixed(1))}%{' '}
+        </span>
+        <span style={{ color: color.text }}>
+          元チャ%→E%上限: {Number(culc.status.ectoe_upper.toFixed(1))}%{' '}
+        </span>
+      </p>
+      <p>
         <span style={{ color: color.text }}>
           {stat.el}: {Number(culc.status.el.toFixed(3)) * 100 + 100}%{' '}
         </span>

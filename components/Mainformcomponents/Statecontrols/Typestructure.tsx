@@ -44,7 +44,7 @@ export default function Typestructure(): ReactElement {
   });
 
   return (
-    <div className="flex flex-col flex-grow  mr-2 border border-gray-800 rounded-lg shadow-sm p-1">
+    <div className="flex flex-col flex-grow mb-2 mr-2 border border-gray-800 rounded-lg shadow-sm p-1">
       {typeelement}
     </div>
   );

@@ -24,7 +24,11 @@ export default function Artifactform({ children, g, id }: any) {
     reset: false,
     delay: 100,
   });
-
+  useEffect(() => {
+    return () => {
+      statusdispatch({ action: 'deletecharartwepaction', id });
+    };
+  }, []);
   return (
     <animated.div style={props}>
       <div className={`ml-2`}>
@@ -40,7 +44,11 @@ export default function Artifactform({ children, g, id }: any) {
             <div className="m-2 grid grid-cols-6 h-30">
               <Inputform label={{ hc: 4780 }} id={id} childid={'1'} />
               <Inputform label={{ ac: 311 }} id={id} childid={'2'} />
-              <Inputform label={{ a: 46.6, b: 58.3, h: 46.6, em: 187 }} id={id} childid={'3'} />
+              <Inputform
+                label={{ a: 46.6, b: 58.3, h: 46.6, em: 187, ec: 46.6 }}
+                id={id}
+                childid={'3'}
+              />
               <Inputform
                 label={{ e: 46.6, a: 46.6, b: 58.3, h: 46.6, em: 187 }}
                 id={id}
@@ -57,27 +65,67 @@ export default function Artifactform({ children, g, id }: any) {
                 childid={'6'}
               />
               <Inputform
-                label={{ e: 15, c: 31.1, d: 62.2, a: 46.6, b: 58.3, h: 46.6, em: 187 }}
+                label={{ e: 15, c: 31.1, d: 62.2, a: 46.6, b: 58.3, h: 46.6, em: 187, ec: 20 }}
                 id={id}
                 childid={'7'}
               />
               <Inputform
-                label={{ ea: 0, c: 31.1, d: 62.2, a: 46.6, b: 58.3, h: 46.6, e: 15, em: 187 }}
+                label={{
+                  ea: 0,
+                  c: 31.1,
+                  d: 62.2,
+                  a: 46.6,
+                  b: 58.3,
+                  h: 46.6,
+                  e: 15,
+                  em: 187,
+                  ectoe: 25,
+                }}
                 id={id}
                 childid={'8'}
               />
               <Inputform
-                label={{ n: 0, c: 31.1, d: 62.2, a: 46.6, b: 58.3, h: 46.6, e: 15, em: 187 }}
+                label={{
+                  n: 0,
+                  c: 31.1,
+                  d: 62.2,
+                  a: 46.6,
+                  b: 58.3,
+                  h: 46.6,
+                  e: 15,
+                  em: 187,
+                  ec: 46.6,
+                }}
                 id={id}
                 childid={'9'}
               />
               <Inputform
-                label={{ n: 0, c: 31.1, d: 62.2, a: 46.6, b: 58.3, h: 46.6, e: 15, em: 187 }}
+                label={{
+                  n: 0,
+                  c: 31.1,
+                  d: 62.2,
+                  a: 46.6,
+                  b: 58.3,
+                  h: 46.6,
+                  e: 15,
+                  em: 187,
+                  ec: 46.6,
+                }}
                 id={id}
                 childid={'10'}
               />
               <Inputform
-                label={{ n: 0, c: 31.1, d: 62.2, a: 46.6, b: 58.3, h: 46.6, e: 15, em: 187 }}
+                label={{
+                  n: 0,
+                  c: 31.1,
+                  d: 62.2,
+                  a: 46.6,
+                  b: 58.3,
+                  h: 46.6,
+                  e: 15,
+                  em: 187,
+                  ec: 46.6,
+                }}
                 id={id}
                 childid={'11'}
               />

@@ -5,8 +5,14 @@ import { Equip, Status, TypeTree } from '../../Statuslist/type';
 import { st } from '../../Statuslist/status';
 
 //指定したidを親に持つ子ノードを生成
-export const createNode = (prev: TypeTree[], id: String, type: Equip, status?: Status): TypeTree[] => {
+export const createNode = (
+  prev: TypeTree[],
+  id: String,
+  type: Equip,
+  fromId?: string
+): TypeTree[] => {
   let prevTree = cloneDeep(prev);
+  console.log(prevTree);
   const newNode = {
     id: (getmaximalId(prevTree) + 1).toString(),
     type,

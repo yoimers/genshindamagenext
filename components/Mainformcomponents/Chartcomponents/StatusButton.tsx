@@ -10,7 +10,7 @@ export default function StatusButton() {
 
   return (
     Object.keys(statbuttons).length !== 0 && (
-      <div className="mr-2 mt-2 border border-gray-800 rounded-lg shadow-sm p-1 ">
+      <div className="mr-2 border border-gray-800 rounded-lg shadow-sm p-1 ">
         <div className="grid grid-cols-6 gap-x-4 gap-y-2">
           {Object.entries(statbuttons).map(([id, statbutton]) => {
             if (statbutton.culctype === 'compare') {
@@ -32,27 +32,29 @@ export default function StatusButton() {
             }
           })}
         </div>
-        <div className="grid grid-cols-6 gap-x-4 gap-y-2 mt-2">
-          {Object.entries(statbuttons).map(([id, statbutton]) => {
-            if (statbutton.culctype === 'opt') {
-              return (
-                <Chartbutton
-                  key={id}
-                  id={id}
-                  statbutton={statbutton}
-                  onClick={() =>
-                    setChart((previd) => {
-                      return { id: previd.id === id ? false : id };
-                    })
-                  }
-                  chart={chart}
-                />
-              );
-            } else {
-              return;
-            }
-          })}
-        </div>
+        {Object.keys(statbuttons).length !== 3 && (
+          <div className="grid grid-cols-6 gap-x-4 gap-y-2 mt-2">
+            {Object.entries(statbuttons).map(([id, statbutton]) => {
+              if (statbutton.culctype === 'opt') {
+                return (
+                  <Chartbutton
+                    key={id}
+                    id={id}
+                    statbutton={statbutton}
+                    onClick={() =>
+                      setChart((previd) => {
+                        return { id: previd.id === id ? false : id };
+                      })
+                    }
+                    chart={chart}
+                  />
+                );
+              } else {
+                return;
+              }
+            })}
+          </div>
+        )}
       </div>
     )
   );
